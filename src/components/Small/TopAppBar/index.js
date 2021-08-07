@@ -14,9 +14,11 @@ const TopAppBar = ({ user, loading }) => {
         </div>
       </Link>
       <div className="topappbar-icons">
-        <Button icon circular disabled={loading} loading={loading}>
-          <FontAwesomeIcon size="3x" icon={faUser} />
-        </Button>
+        <Link to="/login">
+          <Button icon color={user ? "green" : "grey"} circular disabled={loading} loading={loading}>
+            <FontAwesomeIcon size="3x" icon={faUser} />
+          </Button>
+        </Link>
         {user === "isAdmin" && (
           <Link to="/bookings">
             <Button icon circular disabled={loading} loading={loading}>

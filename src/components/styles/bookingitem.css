@@ -1,0 +1,25 @@
+.booking {
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    margin: 1.1em;
+    padding: 1em;
+    border-radius: 8px;
+    border: 2px solid white;
+}
+
+.booking-title{
+    color: white;
+    text-transform: uppercase;
+
+}
+
+.booking-date {
+    font-size: 1.3em;
+    color: darkred
+}
+
+.booking-number {
+    font-size: 1.3em;
+    color: darkred
+}

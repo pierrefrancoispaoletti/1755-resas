@@ -12,7 +12,7 @@ import Bookings from "../../pages/Bookings/index";
 import CallAxios from "../../database/index";
 
 const App = () => {
-  const [user, setUser] = useState("isAdmin");
+  const [user, setUser] = useState("");
   const [message, setMessage] = useState({});
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
@@ -79,10 +79,18 @@ const App = () => {
           />
         </Route>
         <Route path="/login">
-          {!user ? <Login setUser={setUser} /> : <Redirect to="/bookings" />}
+          {!user ? (
+            <Login setUser={setUser} setMessage={setMessage} />
+          ) : (
+            <Redirect to="/bookings" />
+          )}
         </Route>
         <Route path="/bookings">
-          {!user ? <Redirect to="/login" /> : <Bookings />}
+          {!user ? (
+            <Redirect to="/login" />
+          ) : (
+            <Bookings setMessage={setMessage} />
+          )}
         </Route>
       </Switch>
       <Divider />

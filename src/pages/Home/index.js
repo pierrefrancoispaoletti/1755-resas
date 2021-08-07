@@ -12,6 +12,8 @@ import CallAxios from "../../database/index";
 import "../styles/home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/pro-duotone-svg-icons";
+import { getFieldValue } from "../../utils/index";
+import { tokenName } from "../../_const/index";
 
 const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [booking, setBooking] = useState({
@@ -25,12 +27,6 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
-  const getFieldValue = (e) => {
-    let newBooking = {};
-    newBooking[e.target.name] = e.target.value;
-    setBooking({ ...booking, ...newBooking });
-  };
 
   const handleEmptyForm = () => {
     setBooking({
@@ -48,8 +44,8 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const handleChangeResaOpen = async () => {
     setLoading(true);
     const update = { _id: config._id, resaOpen: !config.resaOpen };
-    const token = localStorage.getItem("token-1755");
-    // pour les tests tant que la page de login n'est pas faite utiliser le token du 1755 en dur 
+    const token = localStorage.getItem(`token-${tokenName}`);
+    // pour les tests tant que la page de login n'est pas faite utiliser le token du 1755 en dur
     // on le stockera au moment du login pour le reutiliser plus tard
     const response = await CallAxios.updateConfig(update, token);
     if (response && response.data.status === 200) {
@@ -57,7 +53,10 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
       setMessage({ success: true, message: response.data.message });
       setLoading(false);
     } else {
-      setMessage({ success: false, message: response.data.message });
+      setMessage({
+        success: false,
+        message: response.data.message || "il y a eu un problème",
+      });
       setLoading(false);
     }
   };
@@ -125,7 +124,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                     name="bookerName"
                     value={booking.bookerName}
                     type="text"
-                    onChange={getFieldValue}
+                    onChange={(e) => getFieldValue(e, setBooking, booking)}
                   />
                 </Form.Field>
                 <Form.Field required error={!booking.bookerEmail}>
@@ -134,7 +133,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                     name="bookerEmail"
                     value={booking.bookerEmail}
                     type="email"
-                    onChange={getFieldValue}
+                    onChange={(e) => getFieldValue(e, setBooking, booking)}
                   />
                 </Form.Field>
                 <Form.Field required error={!booking.bookerNumber}>
@@ -152,7 +151,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                     max={6}
                     step={1}
                     type="number"
-                    onChange={getFieldValue}
+                    onChange={(e) => getFieldValue(e, setBooking, booking)}
                   />
                 </Form.Field>
                 <Form.Field required error={!booking.bookingDate}>
@@ -161,7 +160,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                     name="bookingDate"
                     value={booking.bookingDate}
                     type="date"
-                    onChange={getFieldValue}
+                    onChange={(e) => getFieldValue(e, setBooking, booking)}
                   />
                 </Form.Field>
                 <Form.Field required error={!booking.bookingTime}>
@@ -176,7 +175,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                     min="18:30"
                     max="01:00"
                     type="time"
-                    onChange={getFieldValue}
+                    onChange={(e) => getFieldValue(e, setBooking, booking)}
                   />
                 </Form.Field>
                 <Form.Field>
