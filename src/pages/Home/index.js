@@ -140,13 +140,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                   <label>Votre Nombre</label>
                   <input
                     name="bookerNumber"
-                    value={
-                      booking.bookerNumber >= 6
-                        ? 6
-                        : booking.bookerNumber <= 1
-                        ? 1
-                        : booking.bookerNumber
-                    }
+                    value={booking.bookerNumber}
                     min={1}
                     max={6}
                     step={1}
@@ -167,11 +161,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
                   <label>Heure de votre reservation</label>
                   <input
                     name="bookingTime"
-                    value={
-                      booking.bookingTime <= "18:30"
-                        ? "18:30"
-                        : booking.bookingTime
-                    }
+                    value={booking.bookingTime}
                     min="18:30"
                     max="01:00"
                     type="time"

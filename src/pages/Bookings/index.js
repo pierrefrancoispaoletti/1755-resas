@@ -20,9 +20,11 @@ const Bookings = ({ setMessage }) => {
       if (response && response.data.status === 200) {
         const { bookings, message } = response.data;
         bookings
-          .sort((a, b) => new Date(b.bookingDate) - new Date(a.bookingDate))
+          .sort((a, b) => new Date(a.bookingDate) - new Date(b.bookingDate))
           .sort(
-            (a, b) => a.bookingValidatedByAdmin - b.bookingValidatedByAdmin
+            (a, b) =>
+              (b.bookingValidatedByAdmin === null) -
+              (a.bookingValidatedByAdmin === null)
           );
         setBookings([...bookings]);
         setLoading(false);
@@ -135,7 +137,7 @@ const Bookings = ({ setMessage }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent:"center",
+            justifyContent: "center",
             margin: "1.8em",
             color: "white",
             fontSize: "1.5em",

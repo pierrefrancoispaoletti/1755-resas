@@ -17,6 +17,10 @@ const App = () => {
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
 
+  //@todo ajouter socket io pour synchroniser les changements de config 
+  // @todo mettre en place les notifications android et ensuite pour ios
+  //@todo ajouter un filtrage des reservations (passées aujourd'hui futures)
+
   useEffect(() => {
     if (Object.keys(message).length !== 0) {
       setTimeout(() => {

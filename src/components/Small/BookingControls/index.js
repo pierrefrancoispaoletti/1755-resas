@@ -32,14 +32,16 @@ const BookingControls = ({
           </Button>
         </>
       )}
-      <Button
-        icon
-        color="red"
-        circular
-        onClick={() => handleDeleteBooking(booking)}
-      >
-        <FontAwesomeIcon icon={faTrash} />
-      </Button>
+      {booking.bookingValidatedByAdmin !== null && (
+        <Button
+          icon
+          color="red"
+          circular
+          onClick={() => handleDeleteBooking(booking)}
+        >
+          <FontAwesomeIcon icon={faTrash} />
+        </Button>
+      )}
     </div>
   );
 };
