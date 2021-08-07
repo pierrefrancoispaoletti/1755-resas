@@ -1,8 +1,9 @@
 {
-  "appId": "io.ionic.1755-resas",
-  "appName": "1755-resas",
+  "appId": "com.baravin1755",
+  "appName": "1755 resas",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
-  "cordova": {}
+  "cordova": {},
+  "server": { "allowNavigation": [ "resas-test.herokuapp.com/*" ] }
 }

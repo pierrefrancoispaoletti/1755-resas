@@ -49,6 +49,8 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
     setLoading(true);
     const update = { _id: config._id, resaOpen: !config.resaOpen };
     const token = localStorage.getItem("token-1755");
+    // pour les tests tant que la page de login n'est pas faite utiliser le token du 1755 en dur 
+    // on le stockera au moment du login pour le reutiliser plus tard
     const response = await CallAxios.updateConfig(update, token);
     if (response && response.data.status === 200) {
       setConfig(response.data.updatedConfig);
