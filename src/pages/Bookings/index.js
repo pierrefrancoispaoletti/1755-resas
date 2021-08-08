@@ -6,10 +6,14 @@ import CallAxios from "../../database/index";
 import BookingItem from "../../components/Small/BookingItem/index";
 import BookingControls from "../../components/Small/BookingControls";
 import { Divider } from "semantic-ui-react";
+import { calculateDate } from "../../utils";
+import FilterButtons from "../../components/Small/FilterButtons";
+import { bookingsFilter } from "../../utils/index";
 
 const Bookings = ({ setMessage }) => {
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [filter, setFilter] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem(`token-${tokenName}`);
@@ -75,48 +79,13 @@ const Bookings = ({ setMessage }) => {
 
   return (
     <div>
-      {/* <div>
-        <Button
-          color="red"
-          content="Jours Précédents"
-          onClick={() => {
-            let b = [];
-            setBookings((bookings) => [
-              ...b,
-              ...bookings.filter(
-                (booking) => calculateDate(booking.bookingDate) === -1
-              ),
-            ]);
-          }}
-        />
-        <Button
-          color="green"
-          content="Aujourd'hui"
-          onClick={() => {
-            let b = [];
-            setBookings((bookings) => [
-              ...b,
-              ...bookings.filter(
-                (booking) =>
-                  calculateDate(booking.bookingDate) === "Aujourd'hui, Le"
-              ),
-            ]);
-          }}
-        />
-        <Button
-          color="yellow"
-          content="Jours Suivants"
-          onClick={() =>
-            setBookings((bookings) => [
-              ...bookings.filter((booking) =>
-                calculateDate(booking.bookingDate)
-              ),
-            ])
-          }
-        />
-      </div> */}
+      <FilterButtons
+        setFilter={setFilter}
+        bookings={bookings}
+        filter={filter}
+      />
       {bookings.length > 0 &&
-        bookings.map((booking) => {
+        bookingsFilter(bookings, calculateDate, filter).map((booking) => {
           return (
             <>
               <BookingControls

@@ -45,7 +45,7 @@ const BookingItem = ({
       </Label>
       <h2 className="booking-title">{bookerName}</h2>
       <p className="booking-date">
-        <span>{calculateDate(bookingDate)} </span>
+        <span>{calculateDate(bookingDate)[1]}, Le </span>
         <span>
           {new Date(bookingDate).toLocaleString("fr-FR", {
             weekday: "long",
