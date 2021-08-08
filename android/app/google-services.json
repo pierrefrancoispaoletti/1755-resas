@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813260370146",
+    "project_id": "resas-d1707",
+    "storage_bucket": "resas-d1707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813260370146:android:f983decb4e8f66df12aebb",
+        "android_client_info": {
+          "package_name": "com.baravin1755"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813260370146-gk0e8jlfeh7cj3j7hdag72onlj4uate8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCui7Ss8HIDcKR52Zq-bKllOlvWw0iPF1E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813260370146-gk0e8jlfeh7cj3j7hdag72onlj4uate8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

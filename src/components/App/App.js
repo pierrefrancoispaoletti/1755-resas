@@ -10,6 +10,9 @@ import { useState } from "react";
 import Login from "../../pages/Login";
 import Bookings from "../../pages/Bookings/index";
 import CallAxios from "../../database/index";
+import {
+  PushNotifications,
+} from '@capacitor/push-notifications';
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -17,7 +20,7 @@ const App = () => {
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
 
-  //@todo ajouter socket io pour synchroniser les changements de config 
+  //@todo ajouter socket io pour synchroniser les changements de config
   // @todo mettre en place les notifications android et ensuite pour ios
   //@todo ajouter un filtrage des reservations (passées aujourd'hui futures)
 
@@ -48,6 +51,41 @@ const App = () => {
     getConfig();
   }, []);
 
+  useEffect(() => {
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+  
+    PushNotifications.addListener('registration',
+        (token) => {
+          alert('Push registration success, token: ' + token.value);
+        }
+      );
+  
+      PushNotifications.addListener('registrationError',
+        (error) => {
+          alert('Error on registration: ' + JSON.stringify(error));
+        }
+      );
+  
+      PushNotifications.addListener('pushNotificationReceived',
+        (notification) => {
+          alert('Push received: ' + JSON.stringify(notification));
+        }
+      );
+  
+      PushNotifications.addListener('pushNotificationActionPerformed',
+      (notification) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      }
+    );
+  }, []);
+ 
   return (
     <div className="app">
       <TopAppBar user={user} loading={loading} />
