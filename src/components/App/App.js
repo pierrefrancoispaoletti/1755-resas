@@ -10,9 +10,7 @@ import { useState } from "react";
 import Login from "../../pages/Login";
 import Bookings from "../../pages/Bookings/index";
 import CallAxios from "../../database/index";
-import {
-  PushNotifications,
-} from "@capacitor/push-notifications";
+import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
 
 const App = () => {
@@ -54,19 +52,14 @@ const App = () => {
 
   useEffect(() => {
     if (Capacitor.getPlatform() === "android") {
-
       PushNotifications.addListener(
         "pushNotificationReceived",
-        (PushNotificationSchema) => {
-          alert("Push received: " + JSON.stringify(PushNotificationSchema));
-        }
+        (PushNotificationSchema) => {}
       );
 
       PushNotifications.addListener(
         "pushNotificationActionPerformed",
-        (ActionPerformed) => {
-          alert("Push action performed: " + JSON.stringify(ActionPerformed));
-        }
+        (ActionPerformed) => {}
       );
     }
   }, []);
