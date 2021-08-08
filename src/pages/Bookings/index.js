@@ -33,7 +33,7 @@ const Bookings = ({ setMessage }) => {
         async function postAdminRegistrationToken() {
           const response = await CallAxios.postAdminRegistrationToken(
             jwtToken,
-            Token
+            Token.value
           );
           if (response && response.data.status === 200) {
             console.log(response.data);
