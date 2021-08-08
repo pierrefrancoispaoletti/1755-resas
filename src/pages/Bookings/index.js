@@ -134,7 +134,10 @@ const Bookings = ({ setMessage }) => {
             </>
           );
         })}
-      {bookings.length === 0 && (
+      {bookingsFilter(bookings, calculateDate, filter).length === 0 && (
+        //dans ce composant on pourrait afficher un message plus personalisé d'absence de resa 
+        // par ex il n'y a pas de reservations demain, pas de reservations a l'horizon, 
+        // pas de reservation aujourd'hui... etc ....
         <NoBookings />
       )}
     </div>
