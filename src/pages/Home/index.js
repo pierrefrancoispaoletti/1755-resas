@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Header,
-  Icon,
-  Transition,
-} from "semantic-ui-react";
+import { Header, Transition } from "semantic-ui-react";
 import CallAxios from "../../database/index";
 
 import "../styles/home.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRedo } from "@fortawesome/pro-duotone-svg-icons";
-import { getFieldValue } from "../../utils/index";
 import { tokenName } from "../../_const/index";
+import BookingSwitch from "../../components/Small/BookingSwitch";
+import EmptyFormButton from "../../components/Small/EmptyFormButton";
+import AddBookingForm from "../../components/Forms/AddBooking-form";
+import HomeHeader from "../../components/Small/HomeHeader";
 
 const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [booking, setBooking] = useState({
@@ -41,12 +35,11 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
     setLoading(false);
   };
 
+  // gestion de la dispo des resas
   const handleChangeResaOpen = async () => {
     setLoading(true);
     const update = { _id: config._id, resaOpen: !config.resaOpen };
     const token = localStorage.getItem(`token-${tokenName}`);
-    // pour les tests tant que la page de login n'est pas faite utiliser le token du 1755 en dur
-    // on le stockera au moment du login pour le reutiliser plus tard
     const response = await CallAxios.updateConfig(update, token);
     if (response && response.data.status === 200) {
       setConfig(response.data.updatedConfig);
@@ -60,6 +53,8 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
       setLoading(false);
     }
   };
+
+  // soumission du formulaire d'ajour de resa
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -85,126 +80,30 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   return (
     <div className="home">
       {user === "isAdmin" && (
-        <Checkbox
-          type="checkbox"
-          toggle
-          checked={resaOpen}
-          onChange={() => handleChangeResaOpen()}
-          label={
-            resaOpen ? "Reservations activées" : "Réservations desactivées"
-          }
+        <BookingSwitch
+          resaOpen={resaOpen}
+          handleChangeResaOpen={handleChangeResaOpen}
         />
       )}
       {resaOpen ? (
         <>
-          <Header
-            as="h1"
-            style={{
-              background: success ? "green" : error ? "red" : "inherit",
-            }}
-          >
-            {!success && !error
-              ? "Reservez Votre table Maintenant !"
-              : success
-              ? "Votre réservation à été effectuée avec succés , vous allez recevoir un mail de confirmation"
-              : error
-              ? "Votre réservation à échouée, veuillez recommencer"
-              : "Reservez Votre table Maintenant !"}
-          </Header>
+          <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
               animation="fade down"
               duration={300}
               visible={!success || !error}
             >
-              <Form onSubmit={handleSubmit}>
-                <Form.Field required error={!booking.bookerName}>
-                  <label>Votre nom</label>
-                  <input
-                    name="bookerName"
-                    value={booking.bookerName}
-                    type="text"
-                    onChange={(e) => getFieldValue(e, setBooking, booking)}
-                  />
-                </Form.Field>
-                <Form.Field required error={!booking.bookerEmail}>
-                  <label>Votre Email</label>
-                  <input
-                    name="bookerEmail"
-                    value={booking.bookerEmail}
-                    type="email"
-                    onChange={(e) => getFieldValue(e, setBooking, booking)}
-                  />
-                </Form.Field>
-                <Form.Field required error={!booking.bookerNumber}>
-                  <label>Votre Nombre</label>
-                  <input
-                    name="bookerNumber"
-                    value={booking.bookerNumber}
-                    min={1}
-                    max={6}
-                    step={1}
-                    type="number"
-                    onChange={(e) => getFieldValue(e, setBooking, booking)}
-                  />
-                </Form.Field>
-                <Form.Field required error={!booking.bookingDate}>
-                  <label>Date de votre reservation</label>
-                  <input
-                    name="bookingDate"
-                    value={booking.bookingDate}
-                    type="date"
-                    onChange={(e) => getFieldValue(e, setBooking, booking)}
-                  />
-                </Form.Field>
-                <Form.Field required error={!booking.bookingTime}>
-                  <label>Heure de votre reservation</label>
-                  <input
-                    name="bookingTime"
-                    value={booking.bookingTime}
-                    min="18:30"
-                    max="01:00"
-                    type="time"
-                    onChange={(e) => getFieldValue(e, setBooking, booking)}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <Button
-                    size="massive"
-                    loading={loading}
-                    disabled={
-                      loading ||
-                      !booking.bookerName ||
-                      !booking.bookerNumber ||
-                      !booking.bookerEmail ||
-                      !booking.bookingDate ||
-                      !booking.bookingTime
-                    }
-                    color="blue"
-                    type="submit"
-                    content="Je Reserve !"
-                  />
-                </Form.Field>
-              </Form>
+              <AddBookingForm
+                handleSubmit={handleSubmit}
+                setBooking={setBooking}
+                booking={booking}
+                loading={loading}
+              />
             </Transition>
           )}
           {(error || success) && (
-            <Button
-              color="blue"
-              icon
-              type="button"
-              labelPosition="left"
-              onClick={() => handleEmptyForm()}
-            >
-              <Icon>
-                <FontAwesomeIcon
-                  style={{ marginTop: "5px" }}
-                  size="2x"
-                  icon={faRedo}
-                />
-              </Icon>
-              Recharger
-            </Button>
+            <EmptyFormButton handleEmptyForm={handleEmptyForm} />
           )}
         </>
       ) : (

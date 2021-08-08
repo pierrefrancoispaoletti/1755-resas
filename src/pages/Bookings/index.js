@@ -11,6 +11,7 @@ import FilterButtons from "../../components/Small/FilterButtons";
 import { bookingsFilter } from "../../utils/index";
 import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
+import NoBookings from "../../components/Small/NoBookings";
 
 const Bookings = ({ setMessage }) => {
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,7 @@ const Bookings = ({ setMessage }) => {
   useEffect(() => {
     if (Capacitor.getPlatform() === "android") {
       const jwtToken = localStorage.getItem(`token-${tokenName}`);
+
       PushNotifications.requestPermissions().then((result) => {
         if (result.receive === "granted") {
           // Register with Apple / Google to receive push via APNS/FCM
@@ -28,6 +30,8 @@ const Bookings = ({ setMessage }) => {
           return;
         }
       });
+
+      //refactoriser ici afin de pouvoir recuperer les tokens des utilisateurs
 
       PushNotifications.addListener("registration", (Token) => {
         async function postAdminRegistrationToken() {
@@ -39,9 +43,7 @@ const Bookings = ({ setMessage }) => {
         postAdminRegistrationToken();
       });
 
-      PushNotifications.addListener("registrationError", (error) => {
-        alert("Error on registration: " + JSON.stringify(error));
-      });
+      PushNotifications.addListener("registrationError", (error) => {});
     }
   }, []);
 
@@ -71,6 +73,8 @@ const Bookings = ({ setMessage }) => {
     getBookings();
   }, []);
 
+  // appel qui modifie ma valeur du champs bookingValidatedByAdmin a true ou false 
+  // dans le but de valider ou de refuser la reservation
   const handleValidateBooking = async (booking, value) => {
     setLoading(true);
     const token = localStorage.getItem(`token-${tokenName}`);
@@ -115,6 +119,7 @@ const Bookings = ({ setMessage }) => {
         filter={filter}
       />
       {bookings.length > 0 &&
+        //filtre les reservations par la date et un filtre (0 1 2 -1)
         bookingsFilter(bookings, calculateDate, filter).map((booking) => {
           return (
             <>
@@ -130,20 +135,7 @@ const Bookings = ({ setMessage }) => {
           );
         })}
       {bookings.length === 0 && (
-        <div
-          style={{
-            height: "300px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "1.8em",
-            color: "white",
-            fontSize: "1.5em",
-          }}
-        >
-          <p>Désolé , Il n'y a pas de reservations aujourd'hui :-(</p>
-        </div>
+        <NoBookings />
       )}
     </div>
   );
