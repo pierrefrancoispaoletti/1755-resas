@@ -9,11 +9,45 @@ import { Divider } from "semantic-ui-react";
 import { calculateDate } from "../../utils";
 import FilterButtons from "../../components/Small/FilterButtons";
 import { bookingsFilter } from "../../utils/index";
+import { PushNotifications } from "@capacitor/push-notifications";
+import { Capacitor } from "@capacitor/core";
 
 const Bookings = ({ setMessage }) => {
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState([]);
   const [filter, setFilter] = useState(0);
+
+  useEffect(() => {
+    if (Capacitor.getPlatform() === "android") {
+      const jwtToken = localStorage.getItem(`token-${tokenName}`);
+      PushNotifications.requestPermissions().then((result) => {
+        if (result.receive === "granted") {
+          // Register with Apple / Google to receive push via APNS/FCM
+          PushNotifications.register();
+        } else {
+          return;
+        }
+      });
+
+      PushNotifications.addListener("registration", (Token) => {
+        async function postAdminRegistrationToken() {
+          const response = await CallAxios.postAdminRegistrationToken(
+            jwtToken,
+            Token
+          );
+          if(response && response.data.status === 200) {
+            console.log(response.data)
+          } else {
+            console.log("ca m'aurrait étoné que ca marche du premier coup :-)")
+          }
+        }
+      });
+
+      PushNotifications.addListener("registrationError", (error) => {
+        alert("Error on registration: " + JSON.stringify(error));
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem(`token-${tokenName}`);

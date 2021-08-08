@@ -12,7 +12,8 @@ import Bookings from "../../pages/Bookings/index";
 import CallAxios from "../../database/index";
 import {
   PushNotifications,
-} from '@capacitor/push-notifications';
+} from "@capacitor/push-notifications";
+import { Capacitor } from "@capacitor/core";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -52,40 +53,24 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    PushNotifications.requestPermissions().then(result => {
-      if (result.receive === 'granted') {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-      } else {
-        // Show some error
-      }
-    });
-  
-    PushNotifications.addListener('registration',
-        (token) => {
-          alert('Push registration success, token: ' + token.value);
+    if (Capacitor.getPlatform() === "android") {
+
+      PushNotifications.addListener(
+        "pushNotificationReceived",
+        (PushNotificationSchema) => {
+          alert("Push received: " + JSON.stringify(PushNotificationSchema));
         }
       );
-  
-      PushNotifications.addListener('registrationError',
-        (error) => {
-          alert('Error on registration: ' + JSON.stringify(error));
+
+      PushNotifications.addListener(
+        "pushNotificationActionPerformed",
+        (ActionPerformed) => {
+          alert("Push action performed: " + JSON.stringify(ActionPerformed));
         }
       );
-  
-      PushNotifications.addListener('pushNotificationReceived',
-        (notification) => {
-          alert('Push received: ' + JSON.stringify(notification));
-        }
-      );
-  
-      PushNotifications.addListener('pushNotificationActionPerformed',
-      (notification) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
-      }
-    );
+    }
   }, []);
- 
+
   return (
     <div className="app">
       <TopAppBar user={user} loading={loading} />

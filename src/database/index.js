@@ -2,6 +2,26 @@ import axios from "axios";
 import { $SERVER } from "../_const";
 
 class CallAxios {
+  //regToken
+  static postAdminRegistrationToken = async (token, registrationKey) => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: `${$SERVER}/api/bookings/registrationToken`,
+        data: { registrationKey },
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      if (response) {
+        return response;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  };
   //bookings
 
   static getAllBookings = async (token) => {
