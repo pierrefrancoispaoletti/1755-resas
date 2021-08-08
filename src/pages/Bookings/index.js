@@ -35,12 +35,13 @@ const Bookings = ({ setMessage }) => {
             jwtToken,
             Token
           );
-          if(response && response.data.status === 200) {
-            console.log(response.data)
+          if (response && response.data.status === 200) {
+            console.log(response.data);
           } else {
-            console.log("ca m'aurrait étoné que ca marche du premier coup :-)")
+            console.log("ca m'aurrait étoné que ca marche du premier coup :-)");
           }
         }
+        postAdminRegistrationToken();
       });
 
       PushNotifications.addListener("registrationError", (error) => {
