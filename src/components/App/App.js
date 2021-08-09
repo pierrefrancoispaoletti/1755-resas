@@ -12,6 +12,8 @@ import Bookings from "../../pages/Bookings/index";
 import CallAxios from "../../database/index";
 import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
+import { tokenName } from "../../_const";
+import { reconnector } from "../../utils";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -19,19 +21,25 @@ const App = () => {
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
 
-  //@todo ajouter socket io pour synchroniser les changements de config
-  // @todo mettre en place les notifications android et ensuite pour ios
-  //@todo ajouter un filtrage des reservations (passées aujourd'hui futures)
-
   useEffect(() => {
     if (Object.keys(message).length !== 0) {
       setTimeout(() => {
         setMessage({});
-      }, 5000);
+      }, 3000);
     }
   }, [message]);
 
   useEffect(() => {
+    const token = localStorage.getItem(`token-${tokenName}`);
+    if (token && reconnector(token, setUser)) {
+      setMessage({
+        success: true,
+        message: "Re-Connécté"
+      })
+    } else {
+      localStorage.removeItem(`token-${tokenName}`);
+    }
+
     async function getConfig() {
       setLoading(true);
       const response = await CallAxios.getConfig();

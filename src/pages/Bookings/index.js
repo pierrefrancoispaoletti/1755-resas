@@ -12,6 +12,7 @@ import { bookingsFilter } from "../../utils/index";
 import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
 import NoBookings from "../../components/Small/NoBookings";
+import jwt_decode from "jwt-decode";
 
 const Bookings = ({ setMessage }) => {
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,8 @@ const Bookings = ({ setMessage }) => {
   useEffect(() => {
     if (Capacitor.getPlatform() === "android") {
       const jwtToken = localStorage.getItem(`token-${tokenName}`);
-
+      const decodedJwt = jwt_decode(jwtToken);
+      const { user } = decodedJwt;
       PushNotifications.requestPermissions().then((result) => {
         if (result.receive === "granted") {
           // Register with Apple / Google to receive push via APNS/FCM
@@ -40,7 +42,11 @@ const Bookings = ({ setMessage }) => {
             Token
           );
         }
-        postAdminRegistrationToken();
+        if (user.registrationKey !== Token.value) {
+          //ici on envoit l'id de l'apareil au back pour l'inserer en bdd uniquemen si il n'y en a pas ou si il est différent
+          // on pourrait personaliser la fonction en rajoutant l'id qu'on recupére grace au jwt decode
+          postAdminRegistrationToken();
+        }
       });
 
       PushNotifications.addListener("registrationError", (error) => {});
@@ -73,7 +79,7 @@ const Bookings = ({ setMessage }) => {
     getBookings();
   }, []);
 
-  // appel qui modifie ma valeur du champs bookingValidatedByAdmin a true ou false 
+  // appel qui modifie ma valeur du champs bookingValidatedByAdmin a true ou false
   // dans le but de valider ou de refuser la reservation
   const handleValidateBooking = async (booking, value) => {
     setLoading(true);
@@ -135,8 +141,8 @@ const Bookings = ({ setMessage }) => {
           );
         })}
       {bookingsFilter(bookings, calculateDate, filter).length === 0 && (
-        //dans ce composant on pourrait afficher un message plus personalisé d'absence de resa 
-        // par ex il n'y a pas de reservations demain, pas de reservations a l'horizon, 
+        //dans ce composant on pourrait afficher un message plus personalisé d'absence de resa
+        // par ex il n'y a pas de reservations demain, pas de reservations a l'horizon,
         // pas de reservation aujourd'hui... etc ....
         <NoBookings />
       )}
