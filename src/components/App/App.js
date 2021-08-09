@@ -14,12 +14,14 @@ import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
 import { tokenName } from "../../_const";
 import { reconnector } from "../../utils";
+import { getBookings } from "../../methods";
 
 const App = () => {
   const [user, setUser] = useState("");
   const [message, setMessage] = useState({});
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
+  const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     if (Object.keys(message).length !== 0) {
@@ -34,8 +36,8 @@ const App = () => {
     if (token && reconnector(token, setUser)) {
       setMessage({
         success: true,
-        message: "Re-Connécté"
-      })
+        message: "Re-Connécté",
+      });
     } else {
       localStorage.removeItem(`token-${tokenName}`);
     }
@@ -51,7 +53,9 @@ const App = () => {
         setLoading(false);
         setMessage({
           success: false,
-          message: response.data.message,
+          message:
+            response.data.message ||
+            "Impossible de récupérer la configuration, contacter l'administrateur",
         });
       }
     }
@@ -62,7 +66,16 @@ const App = () => {
     if (Capacitor.getPlatform() === "android") {
       PushNotifications.addListener(
         "pushNotificationReceived",
-        (PushNotificationSchema) => {}
+        (notification) => {
+          const token = localStorage.getItem(`token-${tokenName}`);
+          if (token && user) {
+            setMessage({
+              success: true,
+              message: `Nouvelle Réservation de ${notification.body}!`,
+            });
+            getBookings(setLoading, setBookings, setMessage, token);
+          }
+        }
       );
 
       PushNotifications.addListener(
@@ -117,7 +130,11 @@ const App = () => {
           {!user ? (
             <Redirect to="/login" />
           ) : (
-            <Bookings setMessage={setMessage} />
+            <Bookings
+              setMessage={setMessage}
+              bookings={bookings}
+              setBookings={setBookings}
+            />
           )}
         </Route>
       </Switch>

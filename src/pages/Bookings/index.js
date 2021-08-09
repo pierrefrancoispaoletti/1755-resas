@@ -13,10 +13,10 @@ import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
 import NoBookings from "../../components/Small/NoBookings";
 import jwt_decode from "jwt-decode";
+import { getBookings, postAdminRegistrationToken } from "../../methods";
 
-const Bookings = ({ setMessage }) => {
+const Bookings = ({ setMessage, bookings, setBookings }) => {
   const [loading, setLoading] = useState(false);
-  const [bookings, setBookings] = useState([]);
   const [filter, setFilter] = useState(0);
 
   useEffect(() => {
@@ -36,16 +36,10 @@ const Bookings = ({ setMessage }) => {
       //refactoriser ici afin de pouvoir recuperer les tokens des utilisateurs
 
       PushNotifications.addListener("registration", (Token) => {
-        async function postAdminRegistrationToken() {
-          const response = await CallAxios.postAdminRegistrationToken(
-            jwtToken,
-            Token
-          );
-        }
         if (user.registrationKey !== Token.value) {
           //ici on envoit l'id de l'apareil au back pour l'inserer en bdd uniquemen si il n'y en a pas ou si il est différent
           // on pourrait personaliser la fonction en rajoutant l'id qu'on recupére grace au jwt decode
-          postAdminRegistrationToken();
+          postAdminRegistrationToken(jwtToken, Token);
         }
       });
 
@@ -55,28 +49,8 @@ const Bookings = ({ setMessage }) => {
 
   useEffect(() => {
     const token = localStorage.getItem(`token-${tokenName}`);
-    async function getBookings() {
-      setLoading(true);
-      const response = await CallAxios.getAllBookings(token);
-
-      if (response && response.data.status === 200) {
-        const { bookings, message } = response.data;
-        bookings
-          .sort((a, b) => new Date(a.bookingDate) - new Date(b.bookingDate))
-          .sort(
-            (a, b) =>
-              (b.bookingValidatedByAdmin === null) -
-              (a.bookingValidatedByAdmin === null)
-          );
-        setBookings([...bookings]);
-        setLoading(false);
-        setMessage({ success: true, message: message });
-      } else {
-        setLoading(false);
-        setMessage({ success: false, message: "Il y a eu un probléme" });
-      }
-    }
-    getBookings();
+    // dans /methods
+    getBookings(setLoading, setBookings, setMessage, token);
   }, []);
 
   // appel qui modifie ma valeur du champs bookingValidatedByAdmin a true ou false
@@ -85,34 +59,49 @@ const Bookings = ({ setMessage }) => {
     setLoading(true);
     const token = localStorage.getItem(`token-${tokenName}`);
     booking.bookingValidatedByAdmin = value;
+
     const response = await CallAxios.updateBooking(booking, token);
+
     if (response && response.data.status === 200) {
       const { updatedBooking, message } = response.data;
 
       let index = bookings.findIndex((b) => b._id === booking._id);
       bookings.splice(index, 1);
+
       setBookings([...bookings, updatedBooking]);
+
       setLoading(false);
+
       setMessage({ success: true, message: message });
     } else {
       setLoading(false);
+
       setMessage({ success: false, message: "Il y à eu un problème" });
     }
   };
 
   const handleDeleteBooking = async (booking) => {
     setLoading(true);
+
     const token = localStorage.getItem(`token-${tokenName}`);
+
     const response = await CallAxios.deleteBooking(booking, token);
+
     if (response && response.data.status === 200) {
       const { deletedBooking, message } = response.data;
+
       let index = bookings.findIndex((b) => b._id === deletedBooking._id);
+
       bookings.splice(index, 1);
+
       setBookings([...bookings]);
+
       setLoading(false);
+
       setMessage({ success: true, message: message });
     } else {
       setLoading(false);
+
       setMessage({ success: false, message: "Il y à eu un problème" });
     }
   };
