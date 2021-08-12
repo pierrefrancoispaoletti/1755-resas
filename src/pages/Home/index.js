@@ -12,7 +12,7 @@ import HomeHeader from "../../components/Small/HomeHeader";
 const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [booking, setBooking] = useState({
     bookerName: "",
-    bookerNumber: {},
+    bookerNumber: "",
     bookingDate: "",
     bookingTime: "",
     bookerEmail: "",
@@ -25,7 +25,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const handleEmptyForm = () => {
     setBooking({
       bookerName: "",
-      bookerNumber: {},
+      bookerNumber: "",
       bookingDate: "",
       bookingTime: "",
       bookerEmail: "",

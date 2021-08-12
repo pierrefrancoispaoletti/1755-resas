@@ -10,7 +10,7 @@ import { useState } from "react";
 import Login from "../../pages/Login";
 import Bookings from "../../pages/Bookings/index";
 import CallAxios from "../../database/index";
-import { PushNotifications } from "@capacitor/push-notifications";
+import { PushNotifications, PushNotificationSchema } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
 import { tokenName } from "../../_const";
 import { reconnector } from "../../utils";
@@ -66,12 +66,12 @@ const App = () => {
     if (Capacitor.getPlatform() === "android") {
       PushNotifications.addListener(
         "pushNotificationReceived",
-        (notification) => {
+        (PushNotificationSchema) => {
           const token = localStorage.getItem(`token-${tokenName}`);
           if (token && user) {
             setMessage({
               success: true,
-              message: `Nouvelle Réservation de ${notification.body}!`,
+              message: `Nouvelle Réservation de ${PushNotificationSchema.body}!`,
             });
             getBookings(setLoading, setBookings, setMessage, token);
           }

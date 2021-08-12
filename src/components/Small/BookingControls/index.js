@@ -1,6 +1,6 @@
 import { faCheck, faTimes, faTrash } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { memo } from "react";
 import { Button } from "semantic-ui-react";
 
 import "../../styles/bookingcontrols.css";
@@ -46,4 +46,4 @@ const BookingControls = ({
   );
 };
 
-export default BookingControls;
+export default memo(BookingControls);

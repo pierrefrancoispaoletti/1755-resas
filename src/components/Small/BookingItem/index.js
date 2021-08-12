@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Label } from "semantic-ui-react";
 import { calculateDate } from "../../../utils";
 import "../../styles/bookingitem.css";
@@ -63,4 +63,4 @@ const BookingItem = ({
   );
 };
 
-export default BookingItem;
+export default memo(BookingItem);

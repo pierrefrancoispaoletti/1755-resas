@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { tokenName } from "../../_const/index";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -139,4 +139,4 @@ const Bookings = ({ setMessage, bookings, setBookings }) => {
   );
 };
 
-export default Bookings;
+export default memo(Bookings);
