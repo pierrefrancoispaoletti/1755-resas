@@ -16,6 +16,7 @@ const AddBookingForm = ({
           name="bookerName"
           value={booking.bookerName}
           autoComplete="name"
+          placeholder="Votre nom et prénom"
           type="text"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
@@ -27,6 +28,7 @@ const AddBookingForm = ({
           value={booking.bookerEmail}
           autoComplete="email"
           type="email"
+          placeholder="Votre email : toto@toto.fr ..."
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
       </Form.Field>
@@ -36,6 +38,7 @@ const AddBookingForm = ({
           name="bookerNumber"
           value={booking.bookerNumber}
           step={1}
+          placeholder="Votre nombre : 5..."
           type="number"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
@@ -43,8 +46,10 @@ const AddBookingForm = ({
       <Form.Field required error={!booking.bookingDate}>
         <label>Date de votre reservation</label>
         <input
+        style={{display: "block", minWidth:"96%"}}
           name="bookingDate"
           value={booking.bookingDate}
+          placeholder="La date de votre réservation"
           type="date"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
@@ -52,8 +57,11 @@ const AddBookingForm = ({
       <Form.Field required error={!booking.bookingTime}>
         <label>Heure de votre reservation</label>
         <input
+        style={{display: "block", minWidth:"96%"}}
           name="bookingTime"
           value={booking.bookingTime}
+          placeholder="L'Heure de votre réservation"
+          min="0"
           type="time"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />

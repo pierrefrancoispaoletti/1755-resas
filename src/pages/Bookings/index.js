@@ -44,6 +44,8 @@ const Bookings = ({ setMessage, bookings, setBookings }) => {
       });
 
       PushNotifications.addListener("registrationError", (error) => {});
+
+      PushNotifications.removeAllDeliveredNotifications();
     }
   }, []);
 
