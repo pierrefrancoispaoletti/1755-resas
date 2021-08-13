@@ -20,7 +20,7 @@ const Bookings = ({ setMessage, bookings, setBookings }) => {
   const [filter, setFilter] = useState(0);
 
   useEffect(() => {
-    if (Capacitor.getPlatform() === "android") {
+    if (Capacitor.getPlatform() === "android" || Capacitor.getPlatform() === "ios") {
       const jwtToken = localStorage.getItem(`token-${tokenName}`);
       const decodedJwt = jwt_decode(jwtToken);
       const { user } = decodedJwt;

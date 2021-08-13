@@ -63,18 +63,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (Capacitor.getPlatform() === "android") {
+    if (Capacitor.getPlatform() === "android" || Capacitor.getPlatform() === "ios") {
       PushNotifications.addListener(
         "pushNotificationReceived",
         (PushNotificationSchema) => {
-          const token = localStorage.getItem(`token-${tokenName}`);
-          if (token && user) {
-            setMessage({
-              success: true,
-              message: `Nouvelle Réservation de ${PushNotificationSchema.body}!`,
-            });
-            getBookings(setLoading, setBookings, setMessage, token);
-          }
+
         }
       );
 

@@ -15,6 +15,7 @@ const AddBookingForm = ({
         <input
           name="bookerName"
           value={booking.bookerName}
+          autoComplete="name"
           type="text"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
@@ -24,6 +25,7 @@ const AddBookingForm = ({
         <input
           name="bookerEmail"
           value={booking.bookerEmail}
+          autoComplete="email"
           type="email"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
@@ -33,8 +35,6 @@ const AddBookingForm = ({
         <input
           name="bookerNumber"
           value={booking.bookerNumber}
-          min={1}
-          max={6}
           step={1}
           type="number"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
@@ -54,8 +54,6 @@ const AddBookingForm = ({
         <input
           name="bookingTime"
           value={booking.bookingTime}
-          min="18:30"
-          max="01:00"
           type="time"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
