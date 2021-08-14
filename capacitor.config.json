@@ -13,5 +13,5 @@
     }
   },
   "cordova": {},
-  "server": { "allowNavigation": [ "resas-test.herokuapp.com/*" ] }
+  "server": { "allowNavigation": [ "le-1755.herokuapp.com/*" ] }
 }
