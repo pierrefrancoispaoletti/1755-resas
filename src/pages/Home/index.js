@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { Header, Transition } from "semantic-ui-react";
+
 import CallAxios from "../../database/index";
 
-import "../styles/home.css";
 import { tokenName } from "../../_const/index";
+
 import BookingSwitch from "../../components/Small/BookingSwitch";
 import EmptyFormButton from "../../components/Small/EmptyFormButton";
 import AddBookingForm from "../../components/Forms/AddBooking-form";
 import HomeHeader from "../../components/Small/HomeHeader";
+import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
+
+import "../styles/home.css";
 
 const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [booking, setBooking] = useState({
@@ -21,6 +26,19 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let year = today.getFullYear();
+    let time = "18:00";
+    setBooking({
+      ...booking,
+      bookingDate: `${year}-0${mm}-${dd}`,
+      bookingTime: time,
+    });
+  }, []);
 
   const handleEmptyForm = () => {
     setBooking({
@@ -85,7 +103,10 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
           handleChangeResaOpen={handleChangeResaOpen}
         />
       )}
-      {resaOpen ? (
+
+      <HomeMadeLoader loading={loading} />
+
+      {!loading && resaOpen ? (
         <>
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
@@ -107,9 +128,11 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
           )}
         </>
       ) : (
-        <Header as="h1">
-          Les réservations sont désactivées pour le moment , revenez demain !
-        </Header>
+        !loading && (
+          <Header as="h1" className="homeheader">
+            Les réservations sont désactivées pour le moment , revenez demain !
+          </Header>
+        )
       )}
     </div>
   );

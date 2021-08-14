@@ -1,0 +1,7 @@
+.homeheader {
+  color: white !important;
+  text-transform: uppercase !important;
+  border: 2px solid darkred !important;
+  border-radius: 50px;
+  padding: 1.1em 0 !important;
+}

@@ -31,6 +31,7 @@ const LoginForm = ({
       <Form.Field>
         <Button
           size="massive"
+          circular
           loading={loading}
           disabled={loading || !credentials.email || !credentials.password}
           color="blue"

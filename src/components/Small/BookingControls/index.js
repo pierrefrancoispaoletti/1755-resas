@@ -1,6 +1,6 @@
+import React, { memo } from "react";
 import { faCheck, faTimes, faTrash } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { memo } from "react";
 import { Button } from "semantic-ui-react";
 
 import "../../styles/bookingcontrols.css";
@@ -17,18 +17,20 @@ const BookingControls = ({
           <Button
             icon
             color="green"
+            size="big"
             circular
             onClick={() => handleValidateBooking(booking, true)}
           >
-            <FontAwesomeIcon icon={faCheck} />
+            <FontAwesomeIcon fixedWidth size="2x" color="white" icon={faCheck} />
           </Button>
           <Button
             icon
+            size="big"
             color="pink"
             circular
             onClick={() => handleValidateBooking(booking, false)}
           >
-            <FontAwesomeIcon icon={faTimes} />
+            <FontAwesomeIcon fixedWidth size="2x" color="white" icon={faTimes} />
           </Button>
         </>
       )}
@@ -36,6 +38,7 @@ const BookingControls = ({
         <Button
           icon
           color="red"
+          size="massive"
           circular
           onClick={() => handleDeleteBooking(booking)}
         >
