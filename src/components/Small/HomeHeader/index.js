@@ -1,12 +1,15 @@
 import React from "react";
 import { Header } from "semantic-ui-react";
 
-const HomeHeader = ({success, error}) => {
+import "../../styles/homeheader.css";
+
+const HomeHeader = ({ success, error }) => {
   return (
     <Header
+      className="homeheader"
       as="h1"
       style={{
-        background: success ? "green" : error ? "red" : "inherit",
+        background: success ? "green" : error ? "red" : "grey",
       }}
     >
       {!success && !error

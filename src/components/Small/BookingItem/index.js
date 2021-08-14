@@ -35,13 +35,15 @@ const BookingItem = ({
         }
         ribbon
       >
-        {bookingValidatedByAdmin
-          ? "Acceptée"
-          : bookingValidatedByAdmin === false
-          ? "Refusée"
-          : bookingValidatedByAdmin === null
-          ? "Nouvelle"
-          : "Nouvelle"}
+        <span className={`booking-ribbon ${ bookingValidatedByAdmin === null && "animate"}`}>
+          {bookingValidatedByAdmin
+            ? "Acceptée"
+            : bookingValidatedByAdmin === false
+            ? "Refusée"
+            : bookingValidatedByAdmin === null
+            ? "New !"
+            : "New !"}
+        </span>
       </Label>
       <h2 className="booking-title">{bookerName}</h2>
       <p className="booking-date">

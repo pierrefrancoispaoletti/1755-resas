@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Label } from "semantic-ui-react";
-import "../../styles/filterbuttons.css";
 import { bookingsFilter, calculateDate } from "../../../utils/index";
+
+import "../../styles/filterbuttons.css";
 
 const FilterButtons = ({ setFilter, bookings }) => {
   return (
@@ -9,7 +10,8 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="mini"
+          size="massive"
+          circular
           color="red"
           content="Jours Précédents"
           onClick={() => {
@@ -27,7 +29,8 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="mini"
+          size="massive"
+          circular
           color="green"
           content="Aujourd'hui"
           onClick={() => {
@@ -45,7 +48,8 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="mini"
+          size="massive"
+          circular
           color="purple"
           content="Demain"
           onClick={() => {
@@ -63,7 +67,8 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="mini"
+          circular
+          size="massive"
           color="yellow"
           content="Jours Suivants"
           onClick={() => setFilter(2)}

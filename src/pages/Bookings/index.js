@@ -37,13 +37,15 @@ const Bookings = ({ setMessage, bookings, setBookings }) => {
 
       PushNotifications.addListener("registration", (Token) => {
         if (user.registrationKey !== Token.value) {
-          //ici on envoit l'id de l'apareil au back pour l'inserer en bdd uniquemen si il n'y en a pas ou si il est différent
+          //ici on envoit l'id de l'apareil au back pour l'inserer en bdd uniquement si il n'y en a pas ou si il est différent
           // on pourrait personaliser la fonction en rajoutant l'id qu'on recupére grace au jwt decode
           postAdminRegistrationToken(jwtToken, Token);
         }
       });
 
       PushNotifications.addListener("registrationError", (error) => {});
+
+      PushNotifications.removeAllDeliveredNotifications();
     }
   }, []);
 
@@ -105,7 +107,6 @@ const Bookings = ({ setMessage, bookings, setBookings }) => {
       setMessage({ success: false, message: "Il y à eu un problème" });
     }
   };
-
   return (
     <div>
       <FilterButtons

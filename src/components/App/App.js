@@ -1,20 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+// react router
 import { Redirect, Route, Switch } from "react-router-dom";
-import Home from "../../pages/Home";
+
+//components
 import Copyright from "../Copyright";
 import TopAppBar from "../Small/TopAppBar";
+import Toast from "../Small/Toasts";
 
-import "../styles/app.css";
-import { Divider, Message, Transition } from "semantic-ui-react";
-import { useState } from "react";
+//semantic
+import { Divider } from "semantic-ui-react";
+
+//pages
 import Login from "../../pages/Login";
 import Bookings from "../../pages/Bookings/index";
+import Home from "../../pages/Home";
+
+// database
 import CallAxios from "../../database/index";
-import { PushNotifications, PushNotificationSchema } from "@capacitor/push-notifications";
+
+//capacitor
+import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
+
+//const
 import { tokenName } from "../../_const";
+
+//utils
 import { reconnector } from "../../utils";
-import { getBookings } from "../../methods";
+
+//styles
+import "../styles/app.css";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -63,12 +79,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (Capacitor.getPlatform() === "android" || Capacitor.getPlatform() === "ios") {
+    if (
+      Capacitor.getPlatform() === "android" ||
+      Capacitor.getPlatform() === "ios"
+    ) {
       PushNotifications.addListener(
         "pushNotificationReceived",
-        (PushNotificationSchema) => {
-
-        }
+        (PushNotificationSchema) => {}
       );
 
       PushNotifications.addListener(
@@ -82,25 +99,7 @@ const App = () => {
     <div className="app">
       <TopAppBar user={user} loading={loading} />
       <Divider />
-      <Transition
-        animation="jiggle"
-        duration={500}
-        visible={Object.keys(message).length > 0}
-      >
-        <Message
-          style={{
-            position: "fixed",
-            top: 15,
-            zIndex: "1000",
-            width: "100%",
-          }}
-          hidden={Object.keys(message).length === 0}
-          success={message.success ? true : false}
-          error={!message.success ? true : false}
-        >
-          {message.message}
-        </Message>
-      </Transition>
+      <Toast message={message} />
       <Switch>
         <Route exact path="/">
           <Home
