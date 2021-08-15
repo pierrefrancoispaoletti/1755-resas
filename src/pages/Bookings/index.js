@@ -39,7 +39,7 @@ const Bookings = ({ setMessage, bookings, setBookings }) => {
         if (user.registrationKey !== Token.value) {
           //ici on envoit l'id de l'apareil au back pour l'inserer en bdd uniquement si il n'y en a pas ou si il est différent
           // on pourrait personaliser la fonction en rajoutant l'id qu'on recupére grace au jwt decode
-          postAdminRegistrationToken(jwtToken, Token);
+          postAdminRegistrationToken(jwtToken, Token, user.role);
         }
       });
 

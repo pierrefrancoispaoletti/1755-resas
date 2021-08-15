@@ -19,7 +19,7 @@ const TopAppBar = ({ user, loading }) => {
             <FontAwesomeIcon size="3x" icon={faUser} />
           </Button>
         </Link>
-        {user === "isAdmin" && (
+        {user  && (
           <Link to="/bookings">
             <Button icon circular disabled={loading} loading={loading}>
               <FontAwesomeIcon size="3x" icon={faBookOpen} />

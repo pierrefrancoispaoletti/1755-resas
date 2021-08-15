@@ -28,7 +28,8 @@ export const calculateDate = (date) => {
 
 export const bookingsFilter = (array, calculationFunction, mainFilter) => {
   return array.filter(
-    (i) => calculationFunction(i.bookingDate)[0] === mainFilter
+    // verifier cette methode si elle ne recoit pas les bons parametres
+    (i) => i.bookingDate ? calculationFunction(i?.bookingDate)[0] === mainFilter : array
   );
 };
 

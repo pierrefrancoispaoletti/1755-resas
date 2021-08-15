@@ -3,12 +3,12 @@ import { $SERVER } from "../_const";
 
 class CallAxios {
   //regToken
-  static postAdminRegistrationToken = async (token, registrationKey) => {
+  static postAdminRegistrationToken = async (token, registrationKey, role) => {
     try {
       const response = await axios({
         method: "post",
         url: `${$SERVER}/api/bookings/registrationToken`,
-        data: { registrationKey },
+        data: { registrationKey, role },
         headers: {
           Authorization: "Bearer " + token,
         },

@@ -97,7 +97,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
 
   return (
     <div className="home">
-      {user === "isAdmin" && (
+      {user  && (
         <BookingSwitch
           resaOpen={resaOpen}
           handleChangeResaOpen={handleChangeResaOpen}

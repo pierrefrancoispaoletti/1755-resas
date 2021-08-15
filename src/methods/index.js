@@ -28,6 +28,6 @@ export async function getBookings(
 }
 
 
-export async function postAdminRegistrationToken(jwtToken, regId) {
-    await CallAxios.postAdminRegistrationToken(jwtToken, regId);
+export async function postAdminRegistrationToken(jwtToken, regId, role) {
+    await CallAxios.postAdminRegistrationToken(jwtToken, regId, role);
 }
