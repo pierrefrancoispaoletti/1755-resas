@@ -30,7 +30,7 @@ const AddBookingForm = ({ handleSubmit, booking, setBooking, loading }) => {
         />
       </Form.Field>
       <Form.Field required error={!booking.bookerNumber}>
-        <label htmlFor="bookerNumber">Votre Nombre</label>
+        <label htmlFor="bookerNumber">Nombre de personnes</label>
         <input
           id="bookerNumber"
           name="bookerNumber"
