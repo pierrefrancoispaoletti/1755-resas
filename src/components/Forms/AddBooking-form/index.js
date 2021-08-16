@@ -37,7 +37,7 @@ const AddBookingForm = ({ handleSubmit, booking, setBooking, loading }) => {
           value={booking.bookerNumber}
           min={1}
           step={1}
-          placeholder="Votre nombre : 5..."
+          placeholder="Nombre de personnes"
           type="number"
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
