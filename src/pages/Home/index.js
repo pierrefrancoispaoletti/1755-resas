@@ -97,6 +97,22 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
 
   return (
     <div className="home">
+      <a
+        href="https://apps.apple.com/fr/app/1755-r%C3%A9servation/id1581182779?itsct=apps_box_badge&amp;itscg=30200"
+        style={{
+          display: "inline-block",
+          overflow: "hidden",
+          borderRadius: "13px",
+          width: "250px",
+          height: "83px",
+        }}
+      >
+        <img
+          src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83&amp;releaseDate=1628899200&h=e8c99d2716361f18893a828bf513b8ef"
+          alt="Download on the App Store"
+          style={{ borderRadius: "13px", width: "250px", height: "83px" }}
+        />
+      </a>
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
