@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)"
+options: "b98d10b41b5ef43c5bd58fe5cf8f7e4f"
+build_time: [1628855314, 392408000]
+inputs:
+  "/Users/pierrefrancoispaoletti/appdevelopment/1755-resas/node_modules/@capacitor/push-notifications/ios/Plugin/PushNotificationsHandler.swift": [1628852581, 669143995]
+  "/Users/pierrefrancoispaoletti/appdevelopment/1755-resas/node_modules/@capacitor/push-notifications/ios/Plugin/PushNotificationsPlugin.swift": [1628852581, 679362332]
