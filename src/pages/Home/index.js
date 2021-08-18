@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Header, Transition } from "semantic-ui-react";
+import { Divider, Header, Transition } from "semantic-ui-react";
 
 import CallAxios from "../../database/index";
 
@@ -96,23 +96,39 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   };
 
   return (
-    <div className="home">
-      <a
-        href="https://apps.apple.com/fr/app/1755-r%C3%A9servation/id1581182779?itsct=apps_box_badge&amp;itscg=30200"
-        style={{
-          display: "inline-block",
-          overflow: "hidden",
-          borderRadius: "13px",
-          width: "250px",
-          height: "83px",
-        }}
-      >
-        <img
-          src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83&amp;releaseDate=1628899200&h=e8c99d2716361f18893a828bf513b8ef"
-          alt="Download on the App Store"
-          style={{ borderRadius: "13px", width: "250px", height: "83px" }}
-        />
-      </a>
+    <div className='home'>
+      <div style={{display: "flex", flexWrap: "wrap", alignItems:"center", justifyContent: "center"}}>
+        <a href='https://play.google.com/store/apps/details?id=com.baravin1755&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+          <img
+            style={{
+              display: "inline-block",
+              overflow: "hidden",
+              borderRadius: "13px",
+              width: "285px",
+              height: "113px",
+            }}
+            alt='Disponible sur Google Play'
+            src='https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png'
+          />
+        </a>
+        <a
+          href='https://apps.apple.com/fr/app/1755-r%C3%A9servation/id1581182779?itsct=apps_box_badge&amp;itscg=30200'
+          style={{
+            display: "inline-block",
+            overflow: "hidden",
+            borderRadius: "13px",
+            width: "250px",
+            height: "83px",
+          }}
+        >
+          <img
+            src='https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83&amp;releaseDate=1628899200&h=e8c99d2716361f18893a828bf513b8ef'
+            alt='Download on the App Store'
+            style={{ borderRadius: "13px", width: "250px", height: "83px" }}
+          />
+        </a>
+      </div>
+      <Divider />
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
@@ -127,7 +143,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
-              animation="fade down"
+              animation='fade down'
               duration={300}
               visible={!success || !error}
             >
@@ -145,7 +161,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
         </>
       ) : (
         !loading && (
-          <Header as="h1" className="homeheader">
+          <Header as='h1' className='homeheader'>
             Les réservations sont désactivées pour le moment , revenez demain !
           </Header>
         )
