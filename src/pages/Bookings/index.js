@@ -15,42 +15,30 @@ import NoBookings from "../../components/Small/NoBookings";
 import jwt_decode from "jwt-decode";
 import { getBookings, postAdminRegistrationToken } from "../../methods";
 
-const Bookings = ({ setMessage, bookings, setBookings }) => {
+const Bookings = ({
+  setMessage,
+  bookings,
+  setBookings,
+  pushNotificationToken,
+}) => {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(0);
 
   useEffect(() => {
-    if (Capacitor.getPlatform() === "android" || Capacitor.getPlatform() === "ios") {
-      const jwtToken = localStorage.getItem(`token-${tokenName}`);
-      const decodedJwt = jwt_decode(jwtToken);
+    const token = localStorage.getItem(`token-${tokenName}`);
+    if (Capacitor.isNativePlatform()) {
+      const decodedJwt = jwt_decode(token);
       const { user } = decodedJwt;
-      PushNotifications.requestPermissions().then((result) => {
-        if (result.receive === "granted") {
-          // Register with Apple / Google to receive push via APNS/FCM
-          PushNotifications.register();
-        } else {
-          return;
-        }
-      });
 
-      //refactoriser ici afin de pouvoir recuperer les tokens des utilisateurs
-
-      PushNotifications.addListener("registration", (Token) => {
-        if (user.registrationKey !== Token.value) {
-          //ici on envoit l'id de l'apareil au back pour l'inserer en bdd uniquement si il n'y en a pas ou si il est différent
-          // on pourrait personaliser la fonction en rajoutant l'id qu'on recupére grace au jwt decode
-          postAdminRegistrationToken(jwtToken, Token);
-        }
-      });
-
-      PushNotifications.addListener("registrationError", (error) => {});
+      if (
+        pushNotificationToken &&
+        user.registrationKey !== pushNotificationToken
+      ) {
+        postAdminRegistrationToken(token, pushNotificationToken);
+      }
 
       PushNotifications.removeAllDeliveredNotifications();
     }
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem(`token-${tokenName}`);
     // dans /methods
     getBookings(setLoading, setBookings, setMessage, token);
   }, []);

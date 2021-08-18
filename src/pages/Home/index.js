@@ -13,26 +13,36 @@ import HomeHeader from "../../components/Small/HomeHeader";
 import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
 import "../styles/home.css";
+import { PushNotifications } from "@capacitor/push-notifications";
+import { Capacitor } from "@capacitor/core";
 
-const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
+const Home = ({
+  user,
+  setMessage,
+  resaOpen,
+  config,
+  setConfig,
+  pushNotificationToken,
+}) => {
   const [booking, setBooking] = useState({
     bookerName: "",
     bookerNumber: "",
     bookingDate: "",
     bookingTime: "",
     bookerEmail: "",
+    pushNotificationToken: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
   useEffect(() => {
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1;
     let year = today.getFullYear();
     let time = "18:00";
+
     setBooking({
       ...booking,
       bookingDate: `${year}-0${mm}-${dd}`,
@@ -75,6 +85,10 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   // soumission du formulaire d'ajour de resa
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (pushNotificationToken) {
+      booking.pushNotificationToken = pushNotificationToken;
+    }
+
     setLoading(true);
     const response = await CallAxios.postBooking(booking);
     if (response && response.data.status === 200) {
@@ -96,7 +110,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   };
 
   return (
-    <div className="home">
+    <div className='home'>
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
@@ -111,7 +125,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
-              animation="fade down"
+              animation='fade down'
               duration={300}
               visible={!success || !error}
             >
@@ -129,7 +143,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
         </>
       ) : (
         !loading && (
-          <Header as="h1" className="homeheader">
+          <Header as='h1' className='homeheader'>
             Les réservations sont désactivées pour le moment , revenez demain !
           </Header>
         )

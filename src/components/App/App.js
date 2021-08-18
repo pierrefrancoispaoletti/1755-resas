@@ -38,6 +38,7 @@ const App = () => {
   const [config, setConfig] = useState({});
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [pushNotificationToken, setPushNotificationToken] = useState("");
 
   useEffect(() => {
     if (Object.keys(message).length !== 0) {
@@ -79,10 +80,22 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      Capacitor.getPlatform() === "android" ||
-      Capacitor.getPlatform() === "ios"
-    ) {
+    if (Capacitor.isNativePlatform()) {
+      PushNotifications.requestPermissions().then((result) => {
+        if (result.receive === "granted") {
+          // Register with Apple / Google to receive push via APNS/FCM
+          PushNotifications.register();
+        } else {
+          return;
+        }
+      });
+
+      PushNotifications.addListener("registration", (Token) => {
+        setPushNotificationToken(Token.value);
+      });
+
+      PushNotifications.addListener("registrationError", (error) => {});
+
       PushNotifications.addListener(
         "pushNotificationReceived",
         (PushNotificationSchema) => {}
@@ -96,13 +109,20 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app">
-      <TopAppBar user={user} loading={loading} />
+    <div className='app'>
+      <TopAppBar
+        user={user}
+        loading={loading}
+        setUser={setUser}
+        setMessage={setMessage}
+      />
       <Divider />
       <Toast message={message} />
       <Switch>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Home
+            pushNotificationToken={pushNotificationToken}
+            setPushNotificationToken={setPushNotificationToken}
             user={user}
             message={message}
             setMessage={setMessage}
@@ -111,18 +131,20 @@ const App = () => {
             setConfig={setConfig}
           />
         </Route>
-        <Route path="/login">
+        <Route path='/login'>
           {!user ? (
             <Login setUser={setUser} setMessage={setMessage} />
           ) : (
-            <Redirect to="/bookings" />
+            <Redirect to='/bookings' />
           )}
         </Route>
-        <Route path="/bookings">
+        <Route path='/bookings'>
           {!user ? (
-            <Redirect to="/login" />
+            <Redirect to='/login' />
           ) : (
             <Bookings
+              setUser={setUser}
+              pushNotificationToken={pushNotificationToken}
               setMessage={setMessage}
               bookings={bookings}
               setBookings={setBookings}

@@ -2,6 +2,7 @@ html {
   background: #2B2B29;
 }
 body {
+  background: #2B2B29 !important;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
