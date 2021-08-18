@@ -25,7 +25,7 @@ const Login = ({ setUser, setMessage }) => {
       setLoading(false);
       setMessage({
         success: false,
-        message: response.data.message || "Identifiants incorrects",
+        message: "Identifiants incorrects",
       });
     }
   };

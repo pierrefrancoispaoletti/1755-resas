@@ -71,7 +71,6 @@ const App = () => {
         setMessage({
           success: false,
           message:
-            response.data.message ||
             "Impossible de récupérer la configuration, contacter l'administrateur",
         });
       }
