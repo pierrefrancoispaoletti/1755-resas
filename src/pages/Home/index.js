@@ -13,8 +13,6 @@ import HomeHeader from "../../components/Small/HomeHeader";
 import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
 import "../styles/home.css";
-import { PushNotifications } from "@capacitor/push-notifications";
-import { Capacitor } from "@capacitor/core";
 
 const Home = ({
   user,
@@ -76,7 +74,7 @@ const Home = ({
     } else {
       setMessage({
         success: false,
-        message: response.data.message || "il y a eu un problème",
+        message: "il y a eu un problème",
       });
       setLoading(false);
     }
@@ -101,8 +99,7 @@ const Home = ({
       setMessage({
         success: false,
         message:
-          "il y eu un probléme lors de votre réservation veuillez reessayer" ||
-          response.data.message,
+          "il y eu un probléme lors de votre réservation veuillez reessayer",
       });
       setError(true);
       setSuccess(false);
@@ -111,7 +108,14 @@ const Home = ({
 
   return (
     <div className='home'>
-      <div style={{display: "flex", flexWrap: "wrap", alignItems:"center", justifyContent: "center"}}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <a href='https://play.google.com/store/apps/details?id=com.baravin1755&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
           <img
             style={{
