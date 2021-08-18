@@ -14,8 +14,16 @@ import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
 import "../styles/home.css";
 import { PushNotifications } from "@capacitor/push-notifications";
+import { Capacitor } from "@capacitor/core";
 
-const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
+const Home = ({
+  user,
+  setMessage,
+  resaOpen,
+  config,
+  setConfig,
+  pushNotificationToken,
+}) => {
   const [booking, setBooking] = useState({
     bookerName: "",
     bookerNumber: "",
@@ -28,37 +36,18 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
   useEffect(() => {
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1;
     let year = today.getFullYear();
     let time = "18:00";
+
     setBooking({
       ...booking,
       bookingDate: `${year}-0${mm}-${dd}`,
       bookingTime: time,
     });
-
-    PushNotifications.requestPermissions().then((result) => {
-      if (result.receive === "granted") {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-      } else {
-        return;
-      }
-    });
-
-    //refactoriser ici afin de pouvoir recuperer les tokens des utilisateurs
-
-    PushNotifications.addListener("registration", (Token) => {
-      setBooking({...booking, pushNotificationToken: Token.value });
-    });
-
-    PushNotifications.addListener("registrationError", (error) => {});
-
-    PushNotifications.removeAllDeliveredNotifications();
   }, []);
 
   const handleEmptyForm = () => {
@@ -96,6 +85,10 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   // soumission du formulaire d'ajour de resa
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (pushNotificationToken) {
+      booking.pushNotificationToken = pushNotificationToken;
+    }
+
     setLoading(true);
     const response = await CallAxios.postBooking(booking);
     if (response && response.data.status === 200) {
