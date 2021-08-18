@@ -1,5 +1,6 @@
 // utilisé pour la gestion des champs des formulaires
 import jwt_decode from "jwt-decode";
+import { tokenName } from "../_const";
 
 export const getFieldValue = (e, func, state) => {
   let newState = {};
@@ -48,3 +49,12 @@ export const reconnector = (token, logUserFunction) => {
     }
   }
 };
+
+export const logout = (setUser, setMessage) => {
+  localStorage.removeItem(`token-${tokenName}`);
+  setUser("")
+  setMessage({
+    success: true,
+    message: "Déconnexion réussie"
+  })
+}

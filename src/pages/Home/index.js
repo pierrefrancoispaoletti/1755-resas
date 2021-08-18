@@ -13,26 +13,36 @@ import HomeHeader from "../../components/Small/HomeHeader";
 import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
 import "../styles/home.css";
+import { PushNotifications } from "@capacitor/push-notifications";
+import { Capacitor } from "@capacitor/core";
 
-const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
+const Home = ({
+  user,
+  setMessage,
+  resaOpen,
+  config,
+  setConfig,
+  pushNotificationToken,
+}) => {
   const [booking, setBooking] = useState({
     bookerName: "",
     bookerNumber: "",
     bookingDate: "",
     bookingTime: "",
     bookerEmail: "",
+    pushNotificationToken: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
-
   useEffect(() => {
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1;
     let year = today.getFullYear();
     let time = "18:00";
+
     setBooking({
       ...booking,
       bookingDate: `${year}-0${mm}-${dd}`,
@@ -75,6 +85,10 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   // soumission du formulaire d'ajour de resa
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (pushNotificationToken) {
+      booking.pushNotificationToken = pushNotificationToken;
+    }
+
     setLoading(true);
     const response = await CallAxios.postBooking(booking);
     if (response && response.data.status === 200) {
