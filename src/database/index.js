@@ -42,7 +42,7 @@ class CallAxios {
       return false;
     }
   };
-  static postBooking = async (booking) => {
+  static postBooking = async (booking, pushNotificationToken) => {
     if (!booking) {
       return false;
     }
@@ -51,7 +51,7 @@ class CallAxios {
       const response = await axios({
         method: "post",
         url: `${$SERVER}/api/bookings/createBooking`,
-        data: { booking: booking },
+        data: { booking: booking, pushNotificationToken },
       });
       if (response) {
         return response;

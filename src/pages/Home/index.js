@@ -13,6 +13,7 @@ import HomeHeader from "../../components/Small/HomeHeader";
 import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
 import "../styles/home.css";
+import { PushNotifications } from "@capacitor/push-notifications";
 
 const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   const [booking, setBooking] = useState({
@@ -21,6 +22,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
     bookingDate: "",
     bookingTime: "",
     bookerEmail: "",
+    pushNotificationToken: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -38,6 +40,25 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
       bookingDate: `${year}-0${mm}-${dd}`,
       bookingTime: time,
     });
+
+    PushNotifications.requestPermissions().then((result) => {
+      if (result.receive === "granted") {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        return;
+      }
+    });
+
+    //refactoriser ici afin de pouvoir recuperer les tokens des utilisateurs
+
+    PushNotifications.addListener("registration", (Token) => {
+      setBooking({...booking, pushNotificationToken: Token.value });
+    });
+
+    PushNotifications.addListener("registrationError", (error) => {});
+
+    PushNotifications.removeAllDeliveredNotifications();
   }, []);
 
   const handleEmptyForm = () => {
@@ -96,7 +117,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
   };
 
   return (
-    <div className="home">
+    <div className='home'>
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
@@ -111,7 +132,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
-              animation="fade down"
+              animation='fade down'
               duration={300}
               visible={!success || !error}
             >
@@ -129,7 +150,7 @@ const Home = ({ user, setMessage, resaOpen, config, setConfig }) => {
         </>
       ) : (
         !loading && (
-          <Header as="h1" className="homeheader">
+          <Header as='h1' className='homeheader'>
             Les réservations sont désactivées pour le moment , revenez demain !
           </Header>
         )

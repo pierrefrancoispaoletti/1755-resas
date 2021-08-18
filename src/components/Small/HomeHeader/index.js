@@ -13,12 +13,12 @@ const HomeHeader = ({ success, error }) => {
       }}
     >
       {!success && !error
-        ? "Reservez Votre table Maintenant !"
+        ? "Reservez Votre table Maintenant"
         : success
         ? "Votre réservation à été effectuée avec succés , vous allez recevoir un mail de confirmation"
         : error
         ? "Votre réservation à échouée, veuillez recommencer"
-        : "Reservez Votre table Maintenant !"}
+        : "Reservez Votre table Maintenants"}
     </Header>
   );
 };
