@@ -25,6 +25,7 @@ const Home = ({
   const [booking, setBooking] = useState({
     bookerName: "",
     bookerNumber: "",
+    bookerPhoneNumber: "",
     bookingDate: "",
     bookingTime: "",
     bookerEmail: "",
@@ -52,6 +53,7 @@ const Home = ({
     setBooking({
       bookerName: "",
       bookerNumber: "",
+      bookerPhoneNumber: "",
       bookingDate: "",
       bookingTime: "",
       bookerEmail: "",
@@ -99,7 +101,7 @@ const Home = ({
       setMessage({
         success: false,
         message:
-          "il y eu un probléme lors de votre réservation veuillez reessayer",
+          "il y eu un probléme lors de votre réservation veuillez reessayer"
       });
       setError(true);
       setSuccess(false);
