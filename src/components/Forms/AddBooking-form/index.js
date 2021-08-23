@@ -29,6 +29,18 @@ const AddBookingForm = ({ handleSubmit, booking, setBooking, loading }) => {
           onChange={(e) => getFieldValue(e, setBooking, booking)}
         />
       </Form.Field>
+      <Form.Field required error={!booking.bookerPhoneNumber}>
+        <label htmlFor="bookerPhoneNumber">Numéro de téléphone</label>
+        <input
+          id="bookerPhoneNumber"
+          name="bookerPhoneNumber"
+          value={booking.bookerPhoneNumber}
+          autoComplete="tel"
+          type="text"
+          placeholder="06 ... ... ..."
+          onChange={(e) => getFieldValue(e, setBooking, booking)}
+        />
+      </Form.Field>
       <Form.Field required error={!booking.bookerNumber}>
         <label htmlFor="bookerNumber">Nombre de personnes</label>
         <input
@@ -77,6 +89,7 @@ const AddBookingForm = ({ handleSubmit, booking, setBooking, loading }) => {
             !booking.bookerNumber ||
             !booking.bookerEmail ||
             !booking.bookingDate ||
+            !booking.bookerPhoneNumber ||
             !booking.bookingTime
           }
           color="blue"
