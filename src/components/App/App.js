@@ -24,7 +24,7 @@ import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
 
 //const
-import { tokenName } from "../../_const";
+import { $SERVER, tokenName } from "../../_const";
 
 //utils
 import { reconnector } from "../../utils";
@@ -32,6 +32,9 @@ import { logout } from "../../utils/index";
 
 //styles
 import "../styles/app.css";
+import { io } from "socket.io-client";
+
+let socket;
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -40,6 +43,10 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState([]);
   const [pushNotificationToken, setPushNotificationToken] = useState("");
+
+  useEffect(() => {
+    socket = io($SERVER);
+  }, [$SERVER]);
 
   useEffect(() => {
     if (Object.keys(message).length !== 0) {
@@ -108,6 +115,12 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    socket.on("sendBooking", (res) => {
+      setBookings(res)
+    });
+  }, []);
+
   return (
     <div className="app">
       <TopAppBar
@@ -121,6 +134,7 @@ const App = () => {
       <Switch>
         <Route exact path="/">
           <Home
+            socket={socket}
             pushNotificationToken={pushNotificationToken}
             setPushNotificationToken={setPushNotificationToken}
             user={user}

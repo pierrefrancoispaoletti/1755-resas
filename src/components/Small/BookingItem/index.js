@@ -84,7 +84,7 @@ const BookingItem = ({
             year: "numeric",
           })}
         </span>
-        <p> à {bookingTime}</p>
+        <span> à {bookingTime}</span>
       </p>
       <p className='booking-number'>
         Pour : <span>{bookerNumber}</span> personnes

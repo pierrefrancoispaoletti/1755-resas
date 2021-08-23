@@ -104,17 +104,18 @@ const Bookings = ({
       />
       {bookings.length > 0 &&
         //filtre les reservations par la date et un filtre (0 1 2 -1)
-        bookingsFilter(bookings, calculateDate, filter).map((booking) => {
+        bookingsFilter(bookings, calculateDate, filter)?.map((booking) => {
           return (
             <>
               <BookingControls
+                key={`bc-${booking._id}`}
                 booking={booking}
                 loading={loading}
                 handleValidateBooking={handleValidateBooking}
                 handleDeleteBooking={handleDeleteBooking}
               />
-              <BookingItem {...booking} loading={loading} />
-              <Divider />
+              <BookingItem key={booking._id} {...booking} loading={loading} />
+              <Divider key={`dv-${booking._id}`}/>
             </>
           );
         })}

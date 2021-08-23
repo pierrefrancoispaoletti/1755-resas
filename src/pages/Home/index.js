@@ -15,6 +15,7 @@ import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 import "../styles/home.css";
 
 const Home = ({
+  socket,
   user,
   setMessage,
   resaOpen,
@@ -96,12 +97,13 @@ const Home = ({
       setMessage({ success: true, message: response.data.message });
       setError(false);
       setSuccess(true);
+      socket.emit("newBooking", response.data.newBooking);
     } else {
       setLoading(false);
       setMessage({
         success: false,
         message:
-          "il y eu un probléme lors de votre réservation veuillez reessayer"
+          "il y eu un probléme lors de votre réservation veuillez reessayer",
       });
       setError(true);
       setSuccess(false);
@@ -109,7 +111,7 @@ const Home = ({
   };
 
   return (
-    <div className='home'>
+    <div className="home">
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
@@ -124,7 +126,7 @@ const Home = ({
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
-              animation='fade down'
+              animation="fade down"
               duration={300}
               visible={!success || !error}
             >
@@ -142,7 +144,7 @@ const Home = ({
         </>
       ) : (
         !loading && (
-          <Header as='h1' className='homeheader'>
+          <Header as="h1" className="homeheader">
             Les réservations sont désactivées pour le moment , revenez demain !
           </Header>
         )

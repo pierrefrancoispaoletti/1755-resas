@@ -28,8 +28,8 @@ export const calculateDate = (date) => {
 //filtre un tableau avec un filtre et une fonction et qui retourne un tableau filtré des elements
 
 export const bookingsFilter = (array, calculationFunction, mainFilter) => {
-  return array.filter(
-    (i) => calculationFunction(i.bookingDate)[0] === mainFilter
+  return array?.filter(
+    (i) => calculationFunction(i?.bookingDate)[0] === mainFilter
   );
 };
 
@@ -52,9 +52,9 @@ export const reconnector = (token, logUserFunction) => {
 
 export const logout = (setUser, setMessage) => {
   localStorage.removeItem(`token-${tokenName}`);
-  setUser("")
+  setUser("");
   setMessage({
     success: true,
-    message: "Déconnexion réussie"
-  })
-}
+    message: "Déconnexion réussie",
+  });
+};
