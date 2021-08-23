@@ -13,8 +13,6 @@ import HomeHeader from "../../components/Small/HomeHeader";
 import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
 import "../styles/home.css";
-import { PushNotifications } from "@capacitor/push-notifications";
-import { Capacitor } from "@capacitor/core";
 
 const Home = ({
   user,
@@ -27,6 +25,7 @@ const Home = ({
   const [booking, setBooking] = useState({
     bookerName: "",
     bookerNumber: "",
+    bookerPhoneNumber: "",
     bookingDate: "",
     bookingTime: "",
     bookerEmail: "",
@@ -54,6 +53,7 @@ const Home = ({
     setBooking({
       bookerName: "",
       bookerNumber: "",
+      bookerPhoneNumber: "",
       bookingDate: "",
       bookingTime: "",
       bookerEmail: "",
