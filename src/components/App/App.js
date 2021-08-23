@@ -28,6 +28,7 @@ import { tokenName } from "../../_const";
 
 //utils
 import { reconnector } from "../../utils";
+import { logout } from "../../utils/index";
 
 //styles
 import "../styles/app.css";
@@ -56,7 +57,7 @@ const App = () => {
         message: "Re-Connécté",
       });
     } else {
-      localStorage.removeItem(`token-${tokenName}`);
+      logout(setUser, setMessage);
     }
 
     async function getConfig() {
@@ -108,7 +109,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className='app'>
+    <div className="app">
       <TopAppBar
         user={user}
         loading={loading}
@@ -118,7 +119,7 @@ const App = () => {
       <Divider />
       <Toast message={message} />
       <Switch>
-        <Route exact path='/'>
+        <Route exact path="/">
           <Home
             pushNotificationToken={pushNotificationToken}
             setPushNotificationToken={setPushNotificationToken}
@@ -130,16 +131,16 @@ const App = () => {
             setConfig={setConfig}
           />
         </Route>
-        <Route path='/login'>
+        <Route path="/login">
           {!user ? (
             <Login setUser={setUser} setMessage={setMessage} />
           ) : (
-            <Redirect to='/bookings' />
+            <Redirect to="/bookings" />
           )}
         </Route>
-        <Route path='/bookings'>
+        <Route path="/bookings">
           {!user ? (
-            <Redirect to='/login' />
+            <Redirect to="/login" />
           ) : (
             <Bookings
               setUser={setUser}
