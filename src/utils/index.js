@@ -10,7 +10,10 @@ export const getFieldValue = (e, func, state) => {
 
 // calcule la difference entre 2 dates et retourne un tableau qui renvois une valeur et une chaine de caractéres
 export const calculateDate = (date) => {
-  let dateDifference = new Date(date).getDate() - new Date().getDate();
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  const dateDifference = Math.round((new Date(date) - new Date()) / oneDay) + 1;
+
   if (dateDifference === 0) {
     return [0, "Aujourd'hui"];
   }
@@ -52,9 +55,9 @@ export const reconnector = (token, logUserFunction) => {
 
 export const logout = (setUser, setMessage) => {
   localStorage.removeItem(`token-${tokenName}`);
-  setUser("")
+  setUser("");
   setMessage({
     success: true,
-    message: "Déconnexion réussie"
-  })
-}
+    message: "Déconnexion réussie",
+  });
+};
