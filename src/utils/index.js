@@ -14,8 +14,6 @@ export const calculateDate = (date) => {
 
   const dateDifference = Math.round((new Date(date) - new Date()) / oneDay);
 
-  console.log(dateDifference);
-
   if (dateDifference === 0) {
     return [0, "Aujourd'hui"];
   }
