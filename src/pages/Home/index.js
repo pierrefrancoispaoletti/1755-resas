@@ -37,14 +37,14 @@ const Home = ({
   const [error, setError] = useState(false);
   useEffect(() => {
     let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
+    let dd = `0${today.getDate()}`.slice(-2);
+    let mm = `0${today.getMonth() + 1}`.slice(-2);
     let year = today.getFullYear();
     let time = "18:00";
 
     setBooking({
       ...booking,
-      bookingDate: `${year}-0${mm}-${dd}`,
+      bookingDate: `${year}-${mm}-${dd}`,
       bookingTime: time,
     });
   }, []);
@@ -101,7 +101,7 @@ const Home = ({
       setMessage({
         success: false,
         message:
-          "il y eu un probléme lors de votre réservation veuillez reessayer"
+          "il y eu un probléme lors de votre réservation veuillez reessayer",
       });
       setError(true);
       setSuccess(false);
@@ -109,7 +109,7 @@ const Home = ({
   };
 
   return (
-    <div className='home'>
+    <div className="home">
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
@@ -124,7 +124,7 @@ const Home = ({
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
-              animation='fade down'
+              animation="fade down"
               duration={300}
               visible={!success || !error}
             >
@@ -142,7 +142,7 @@ const Home = ({
         </>
       ) : (
         !loading && (
-          <Header as='h1' className='homeheader'>
+          <Header as="h1" className="homeheader">
             Les réservations sont désactivées pour le moment , revenez demain !
           </Header>
         )
