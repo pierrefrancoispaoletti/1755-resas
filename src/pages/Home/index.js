@@ -48,7 +48,6 @@ const Home = ({
       bookingTime: time,
     });
   }, []);
-
   const handleEmptyForm = () => {
     setBooking({
       bookerName: "",
