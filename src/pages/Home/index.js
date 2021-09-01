@@ -37,14 +37,14 @@ const Home = ({
   const [error, setError] = useState(false);
   useEffect(() => {
     let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
+    let dd = `0${today.getDate()}`.slice(-2);
+    let mm = `0${today.getMonth() + 1}`.slice(-2);
     let year = today.getFullYear();
     let time = "18:00";
 
     setBooking({
       ...booking,
-      bookingDate: `${year}-0${mm}-${dd}`,
+      bookingDate: `${year}-${mm}-${dd}`,
       bookingTime: time,
     });
   }, []);
@@ -101,7 +101,7 @@ const Home = ({
       setMessage({
         success: false,
         message:
-          "il y eu un probléme lors de votre réservation veuillez reessayer"
+          "il y eu un probléme lors de votre réservation veuillez reessayer",
       });
       setError(true);
       setSuccess(false);
@@ -109,7 +109,7 @@ const Home = ({
   };
 
   return (
-    <div className='home'>
+    <div className="home">
       <div
         style={{
           display: "flex",
@@ -118,7 +118,7 @@ const Home = ({
           justifyContent: "center",
         }}
       >
-        <a href='https://play.google.com/store/apps/details?id=com.baravin1755&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+        <a href="https://play.google.com/store/apps/details?id=com.baravin1755&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
           <img
             style={{
               display: "inline-block",
@@ -127,12 +127,12 @@ const Home = ({
               width: "285px",
               height: "113px",
             }}
-            alt='Disponible sur Google Play'
-            src='https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png'
+            alt="Disponible sur Google Play"
+            src="https://play.google.com/intl/en_us/badges/static/images/badges/fr_badge_web_generic.png"
           />
         </a>
         <a
-          href='https://apps.apple.com/fr/app/1755-r%C3%A9servation/id1581182779?itsct=apps_box_badge&amp;itscg=30200'
+          href="https://apps.apple.com/fr/app/1755-r%C3%A9servation/id1581182779?itsct=apps_box_badge&amp;itscg=30200"
           style={{
             display: "inline-block",
             overflow: "hidden",
@@ -142,8 +142,8 @@ const Home = ({
           }}
         >
           <img
-            src='https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83&amp;releaseDate=1628899200&h=e8c99d2716361f18893a828bf513b8ef'
-            alt='Download on the App Store'
+            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fr-fr?size=250x83&amp;releaseDate=1628899200&h=e8c99d2716361f18893a828bf513b8ef"
+            alt="Download on the App Store"
             style={{ borderRadius: "13px", width: "250px", height: "83px" }}
           />
         </a>
@@ -163,7 +163,7 @@ const Home = ({
           <HomeHeader success={success} error={error} />
           {!success && !error && resaOpen && (
             <Transition
-              animation='fade down'
+              animation="fade down"
               duration={300}
               visible={!success || !error}
             >
@@ -181,7 +181,7 @@ const Home = ({
         </>
       ) : (
         !loading && (
-          <Header as='h1' className='homeheader'>
+          <Header as="h1" className="homeheader">
             Les réservations sont désactivées pour le moment , revenez demain !
           </Header>
         )

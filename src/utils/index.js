@@ -12,7 +12,9 @@ export const getFieldValue = (e, func, state) => {
 export const calculateDate = (date) => {
   const oneDay = 24 * 60 * 60 * 1000;
 
-  const dateDifference = Math.round((new Date(date) - new Date()) / oneDay) + 1;
+  const dateDifference = Math.round((new Date(date) - new Date()) / oneDay);
+
+  console.log(dateDifference);
 
   if (dateDifference === 0) {
     return [0, "Aujourd'hui"];

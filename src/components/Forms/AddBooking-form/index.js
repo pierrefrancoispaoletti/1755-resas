@@ -67,7 +67,16 @@ const AddBookingForm = ({ handleSubmit, booking, setBooking, loading }) => {
       </Form.Field>
       <Form.Field required error={!booking.bookingTime}>
         <label htmlFor="bookingTime">Heure de votre reservation</label>
-        <span style={{color: "white", textAlign:"center", fontSize:"1.3em", fontWeight: "bold"}}>Minimum 18h00</span>
+        <span
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontSize: "1.3em",
+            fontWeight: "bold",
+          }}
+        >
+          Minimum 18h00
+        </span>
         <Input
           id="bookingTime"
           name="bookingTime"
