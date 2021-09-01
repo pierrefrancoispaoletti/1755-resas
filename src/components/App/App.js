@@ -30,8 +30,24 @@ import { tokenName } from "../../_const";
 import { reconnector } from "../../utils";
 import { logout } from "../../utils/index";
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getMessaging, getToken } from "firebase/messaging";
 //styles
 import "../styles/app.css";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBnnmKiorC6eUkSse-IhvGXRqZYaSeqKuQ",
+  authDomain: "resas-d1707.firebaseapp.com",
+  projectId: "resas-d1707",
+  storageBucket: "resas-d1707.appspot.com",
+  messagingSenderId: "813260370146",
+  appId: "1:813260370146:web:33100c33ab25467412aebb",
+  measurementId: "G-V5QZPQFCGQ",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -105,6 +121,27 @@ const App = () => {
         "pushNotificationActionPerformed",
         (ActionPerformed) => {}
       );
+    } else {
+      Notification.requestPermission((status) => console.log(status));
+      const messaging = getMessaging();
+      getToken(messaging, {
+        vapidKey:
+          "BJhj1DTPykIbZTL6P3a2TrfgdBds5tzf14VqYqL-powIJjOHE31_0hwOtdmUTrAkDMIE0LT5CDsXk9AsFOt4j7I",
+      })
+        .then((currentToken) => {
+          if (currentToken) {
+            setPushNotificationToken(currentToken);
+          } else {
+            console.log(
+              "No registration token available. Request permission to generate one."
+            );
+            // ...
+          }
+        })
+        .catch((err) => {
+          console.log("An error occurred while retrieving token. ", err);
+          // ...
+        });
     }
   }, []);
 
