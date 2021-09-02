@@ -28,7 +28,6 @@ import { tokenName } from "../../_const";
 
 //utils
 import { reconnector } from "../../utils";
-import { logout } from "../../utils/index";
 
 //styles
 import "../styles/app.css";
@@ -57,7 +56,8 @@ const App = () => {
         message: "Re-Connécté",
       });
     } else {
-      logout(setUser, setMessage);
+      setUser("");
+      localStorage.removeItem(`token-${tokenName}`);
     }
 
     async function getConfig() {
