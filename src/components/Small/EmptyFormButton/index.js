@@ -1,21 +1,25 @@
 import React from "react";
-import { faRedo } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Icon } from "semantic-ui-react";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
 
 const EmptyFormButton = ({ handleEmptyForm }) => {
   return (
     <Button
-      size="massive"
+      size='massive'
       circular
-      color="blue"
+      color='blue'
       icon
-      type="button"
-      labelPosition="left"
+      type='button'
+      labelPosition='left'
       onClick={() => handleEmptyForm()}
     >
       <Icon>
-        <FontAwesomeIcon style={{ marginTop: "5px" }} size="2x" icon={faRedo} />
+        <FontAwesomeIcon
+          style={{ marginTop: "5px" }}
+          size='2x'
+          icon={faRedo}
+        />
       </Icon>
       Recharger
     </Button>

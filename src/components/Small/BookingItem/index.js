@@ -3,7 +3,7 @@ import { Label } from "semantic-ui-react";
 import { calculateDate } from "../../../utils";
 import "../../styles/bookingitem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPhoneAlt } from "@fortawesome/pro-duotone-svg-icons";
+import { faEnvelope, faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 
 const BookingItem = ({
   bookerName,
@@ -61,7 +61,11 @@ const BookingItem = ({
             href={`tel: ${bookerPhoneNumber}`}
           >
             <span>
-              <FontAwesomeIcon size='2x' color='white' icon={faPhoneAlt} />
+              <FontAwesomeIcon
+                size='2x'
+                color='white'
+                icon={faPhoneAlt}
+              />
             </span>
           </a>
         )}
@@ -70,7 +74,11 @@ const BookingItem = ({
           href={`mailto: ${bookerEmail}`}
         >
           <span>
-            <FontAwesomeIcon size='2x' color='white' icon={faEnvelope} />
+            <FontAwesomeIcon
+              size='2x'
+              color='white'
+              icon={faEnvelope}
+            />
           </span>
         </a>
       </h2>

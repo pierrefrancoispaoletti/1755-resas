@@ -1,9 +1,13 @@
 import React, { memo } from "react";
-import { faCheck, faTimes, faTrash } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "semantic-ui-react";
 
 import "../../styles/bookingcontrols.css";
+import {
+  faCheckCircle,
+  faTimesCircle,
+  faTrashAlt,
+} from "@fortawesome/free-regular-svg-icons";
 
 const BookingControls = ({
   booking,
@@ -11,38 +15,48 @@ const BookingControls = ({
   handleDeleteBooking,
 }) => {
   return (
-    <div className="bookingcontrols">
+    <div className='bookingcontrols'>
       {booking.bookingValidatedByAdmin === null && (
         <>
           <Button
             icon
-            color="green"
-            size="big"
+            color='green'
+            size='big'
             circular
             onClick={() => handleValidateBooking(booking, true)}
           >
-            <FontAwesomeIcon fixedWidth size="2x" color="white" icon={faCheck} />
+            <FontAwesomeIcon
+              fixedWidth
+              size='2x'
+              color='white'
+              icon={faCheckCircle}
+            />
           </Button>
           <Button
             icon
-            size="big"
-            color="pink"
+            size='big'
+            color='pink'
             circular
             onClick={() => handleValidateBooking(booking, false)}
           >
-            <FontAwesomeIcon fixedWidth size="2x" color="white" icon={faTimes} />
+            <FontAwesomeIcon
+              fixedWidth
+              size='2x'
+              color='white'
+              icon={faTimesCircle}
+            />
           </Button>
         </>
       )}
       {booking.bookingValidatedByAdmin !== null && (
         <Button
           icon
-          color="red"
-          size="massive"
+          color='red'
+          size='massive'
           circular
           onClick={() => handleDeleteBooking(booking)}
         >
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faTrashAlt} />
         </Button>
       )}
     </div>
