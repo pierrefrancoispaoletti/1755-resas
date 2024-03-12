@@ -3,11 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "semantic-ui-react";
 
 import "../../styles/bookingcontrols.css";
-import {
-  faCheckCircle,
-  faTimesCircle,
-  faTrashAlt,
-} from "@fortawesome/free-regular-svg-icons";
+import { faCheck, faTimes, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const BookingControls = ({
   booking,
@@ -29,7 +25,7 @@ const BookingControls = ({
               fixedWidth
               size='2x'
               color='white'
-              icon={faCheckCircle}
+              icon={faCheck}
             />
           </Button>
           <Button
@@ -43,7 +39,7 @@ const BookingControls = ({
               fixedWidth
               size='2x'
               color='white'
-              icon={faTimesCircle}
+              icon={faTimes}
             />
           </Button>
         </>
@@ -56,7 +52,7 @@ const BookingControls = ({
           circular
           onClick={() => handleDeleteBooking(booking)}
         >
-          <FontAwesomeIcon icon={faTrashAlt} />
+          <FontAwesomeIcon icon={faTrash} />
         </Button>
       )}
     </div>

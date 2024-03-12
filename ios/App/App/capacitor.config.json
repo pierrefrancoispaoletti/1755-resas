@@ -18,8 +18,6 @@
 	},
 	"cordova": {},
 	"server": {
-		"allowNavigation": [
-			"le-1755.herokuapp.com/*"
-		]
+		"androidScheme": "https"
 	}
 }
