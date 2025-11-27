@@ -1,111 +1,204 @@
-import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Divider, Header } from "semantic-ui-react";
-
-import "./copyright.css";
 import {
-  faEnvelope,
-  faHeart,
-  faPhone,
-} from "@fortawesome/free-solid-svg-icons";
+  Box,
+  Typography,
+  Divider,
+  IconButton,
+  Stack,
+  Link as MuiLink
+} from "@mui/material";
+import {
+  Facebook as FacebookIcon,
+  Instagram as InstagramIcon,
+  Email as EmailIcon,
+  Phone as PhoneIcon,
+  Favorite as FavoriteIcon
+} from "@mui/icons-material";
+
 const Copyright = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className='footer'>
-      <div>
-        <Header as='h3'>Retrouvez nous sur : </Header>
-      </div>
-      <div className='footer__icons'>
-        <a
-          target='_blank'
-          href='fb://profile/196458368600'
-          rel='noreferrer'
+    <Box
+      component="footer"
+      sx={{
+        mt: 'auto',
+        py: { xs: 3, sm: 4 },
+        px: { xs: 2, sm: 3 },
+        backgroundColor: 'background.paper',
+        borderTop: '1px solid',
+        borderColor: 'divider'
+      }}
+    >
+      {/* Section Réseaux Sociaux */}
+      <Stack spacing={2} alignItems="center">
+        <Typography
+          variant="h6"
+          component="h3"
+          sx={{
+            fontFamily: 'typography.fontFamilySubtitle',
+            textAlign: 'center',
+            color: 'text.primary'
+          }}
         >
-          <FontAwesomeIcon
-            style={{
-              color: "#3B5998",
-              background: "white",
-              borderRadius: "100%",
+          Retrouvez nous sur :
+        </Typography>
+
+        <Stack direction="row" spacing={2}>
+          <IconButton
+            component="a"
+            href="fb://profile/196458368600"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visitez notre page Facebook"
+            sx={{
+              color: '#3B5998',
+              backgroundColor: 'white',
+              '&:hover': {
+                backgroundColor: '#f0f0f0',
+                transform: 'scale(1.1)'
+              },
+              transition: 'all 0.2s'
             }}
-            size='3x'
-            icon={faFacebook}
-            pull='left'
-          />
-        </a>
-        <a
-          target='_blank'
-          href='https://www.instagram.com/1755baravin/'
-          rel='noreferrer'
+          >
+            <FacebookIcon sx={{ fontSize: 40 }} />
+          </IconButton>
+
+          <IconButton
+            component="a"
+            href="https://www.instagram.com/1755baravin/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visitez notre page Instagram"
+            sx={{
+              color: '#E4405F',
+              backgroundColor: 'white',
+              '&:hover': {
+                backgroundColor: '#f0f0f0',
+                transform: 'scale(1.1)'
+              },
+              transition: 'all 0.2s'
+            }}
+          >
+            <InstagramIcon sx={{ fontSize: 40 }} />
+          </IconButton>
+        </Stack>
+      </Stack>
+
+      <Divider sx={{ my: 3, borderColor: 'divider' }} />
+
+      {/* Section Contact */}
+      <Stack spacing={2} alignItems="center">
+        <Typography
+          variant="h6"
+          component="h3"
+          sx={{
+            fontFamily: 'typography.fontFamilySubtitle',
+            textAlign: 'center',
+            color: 'text.primary'
+          }}
         >
-          <FontAwesomeIcon
-            style={{ color: "#3F729B", borderRadius: "100%" }}
-            size='3x'
-            icon={faInstagram}
-            pull='right'
-          />
-        </a>
-      </div>
-      <Divider />
-      <div>
-        <Header as='h3'>Contactez nous ! </Header>
-      </div>
-      <div className='footer__icons'>
-        <a href={`mailto:christophemartinetti@baravin1755.com`}>
-          <FontAwesomeIcon
-            style={{
-              "--fa-primary-color": "black",
-              "--fa-secondary-color": "white",
-              "--fa-secondary-opacity": 0.8,
+          Contactez nous !
+        </Typography>
+
+        <Stack direction="row" spacing={2}>
+          <IconButton
+            component="a"
+            href="mailto:christophemartinetti@baravin1755.com"
+            aria-label="Envoyez-nous un email"
+            sx={{
+              color: 'info.main',
+              '&:hover': {
+                backgroundColor: 'action.hover',
+                transform: 'scale(1.1)'
+              },
+              transition: 'all 0.2s'
             }}
-            size='3x'
-            icon={faEnvelope}
-            pull='left'
-          />
-        </a>
-        <a href={`tel:0609542757`}>
-          <FontAwesomeIcon
-            style={{
-              "--fa-primary-color": "firebrick",
-              "--fa-secondary-color": "black",
-              "--fa-primary-opacity": 1,
-              "--fa-secondary-opacity": 1,
+          >
+            <EmailIcon sx={{ fontSize: 40 }} />
+          </IconButton>
+
+          <IconButton
+            component="a"
+            href="tel:0609542757"
+            aria-label="Appelez-nous au 06 09 54 27 57"
+            sx={{
+              color: 'primary.main',
+              '&:hover': {
+                backgroundColor: 'action.hover',
+                transform: 'scale(1.1)'
+              },
+              transition: 'all 0.2s'
             }}
-            size='3x'
-            icon={faPhone}
-            pull='right'
-          />
-        </a>
-      </div>
-      <Divider />
-      <div
-        className='footer__copyright'
-        style={{ color: "white" }}
-      >
-        {"Copyright © "}
-        <a
-          style={{ color: "white" }}
-          href='https://baravin1755.com'
+          >
+            <PhoneIcon sx={{ fontSize: 40 }} />
+          </IconButton>
+        </Stack>
+      </Stack>
+
+      <Divider sx={{ my: 3, borderColor: 'divider' }} />
+
+      {/* Section Copyright */}
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+            fontFamily: 'typography.fontFamilySubtitle',
+            mb: 1
+          }}
         >
-          <span>Le 1755 &nbsp;</span>
-        </a>
-        <span>{` ${new Date().getFullYear()}. `}</span>
-      </div>
-      <div className='footer__alvp'>
-        <a
-          style={{ color: "white", fontSize: "1em" }}
-          href='mailto:pef@alvp-developments.com'
+          Copyright ©{' '}
+          <MuiLink
+            href="https://baravin1755.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: 'text.primary',
+              textDecoration: 'none',
+              '&:hover': {
+                color: 'primary.main',
+                textDecoration: 'underline'
+              }
+            }}
+          >
+            Le 1755
+          </MuiLink>
+          {' '}{currentYear}.
+        </Typography>
+
+        {/* Crédit développeur */}
+        <MuiLink
+          href="mailto:pef@alvp-developments.com"
+          sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 0.5,
+            color: 'text.secondary',
+            textDecoration: 'none',
+            fontSize: '0.875rem',
+            '&:hover': {
+              color: 'primary.main'
+            },
+            transition: 'color 0.2s'
+          }}
         >
           Made with
-          <FontAwesomeIcon
-            className='alvp__icon'
-            color='darkred'
-            icon={faHeart}
-            size='2x'
+          <FavoriteIcon
+            sx={{
+              fontSize: 20,
+              color: 'primary.main',
+              animation: 'heartbeat 1.5s ease-in-out infinite',
+              '@keyframes heartbeat': {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.1)' }
+              }
+            }}
           />
           by ALVP-Developments Ajaccio
-        </a>
-      </div>
-    </div>
+        </MuiLink>
+      </Box>
+    </Box>
   );
 };
 

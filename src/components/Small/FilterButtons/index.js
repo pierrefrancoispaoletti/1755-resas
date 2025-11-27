@@ -1,87 +1,84 @@
 import React from "react";
-import { Button, Label } from "semantic-ui-react";
+import { Box, Chip, Stack } from "@mui/material";
+import {
+  History as HistoryIcon,
+  Today as TodayIcon,
+  NavigateNext as TomorrowIcon,
+  Event as EventIcon
+} from "@mui/icons-material";
 import { bookingsFilter, calculateDate } from "../../../utils/index";
 
-import "../../styles/filterbuttons.css";
+const FilterButtons = ({ setFilter, bookings, currentFilter }) => {
+  const filters = [
+    {
+      label: "Jours Précédents",
+      value: -1,
+      color: "error",
+      icon: <HistoryIcon />
+    },
+    {
+      label: "Aujourd'hui",
+      value: 0,
+      color: "success",
+      icon: <TodayIcon />
+    },
+    {
+      label: "Demain",
+      value: 1,
+      color: "secondary",
+      icon: <TomorrowIcon />
+    },
+    {
+      label: "Jours Suivants",
+      value: 2,
+      color: "warning",
+      icon: <EventIcon />
+    }
+  ];
 
-const FilterButtons = ({ setFilter, bookings }) => {
   return (
-    <div className="filterbuttons">
-      <div style={{ position: "relative" }}>
-        <Button
-          className="filterbuttons-button"
-          size="massive"
-          circular
-          color="red"
-          content="Jours Précédents"
-          onClick={() => {
-            setFilter(-1);
-          }}
-        />
-        <Label
-          style={{ position: "absolute", top: "-11px", left: "3px" }}
-          color="blue"
-          circular
-        >
-          {bookingsFilter(bookings, calculateDate, -1).length}
-        </Label>
-      </div>
-      <div style={{ position: "relative" }}>
-        <Button
-          className="filterbuttons-button"
-          size="massive"
-          circular
-          color="green"
-          content="Aujourd'hui"
-          onClick={() => {
-            setFilter(0);
-          }}
-        />
-        <Label
-          style={{ position: "absolute", top: "-11px", left: "3px" }}
-          color="blue"
-          circular
-        >
-          {bookingsFilter(bookings, calculateDate, 0).length}
-        </Label>
-      </div>
-      <div style={{ position: "relative" }}>
-        <Button
-          className="filterbuttons-button"
-          size="massive"
-          circular
-          color="purple"
-          content="Demain"
-          onClick={() => {
-            setFilter(1);
-          }}
-        />
-        <Label
-          style={{ position: "absolute", top: "-11px", left: "3px" }}
-          color="blue"
-          circular
-        >
-          {bookingsFilter(bookings, calculateDate, 1).length}
-        </Label>
-      </div>
-      <div style={{ position: "relative" }}>
-        <Button
-          className="filterbuttons-button"
-          circular
-          size="massive"
-          color="yellow"
-          content="Jours Suivants"
-          onClick={() => setFilter(2)}
-        />
-        <Label
-          style={{ position: "absolute", top: "-11px", left: "3px" }}
-          color="blue"
-          circular
-        >
-          {bookingsFilter(bookings, calculateDate, 2).length}
-        </Label>
-      </div>
-    </div>
+    <Box sx={{ mb: 3 }}>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          flexWrap: 'wrap',
+          gap: 1,
+          justifyContent: 'center'
+        }}
+      >
+        {filters.map((filter) => {
+          const count = bookingsFilter(bookings, calculateDate, filter.value).length;
+          const isActive = currentFilter === filter.value;
+
+          return (
+            <Chip
+              key={filter.value}
+              label={`${filter.label} (${count})`}
+              icon={filter.icon}
+              onClick={() => setFilter(filter.value)}
+              color={filter.color}
+              variant={isActive ? "filled" : "outlined"}
+              sx={{
+                fontSize: { xs: '0.85rem', sm: '0.95rem' },
+                fontWeight: isActive ? 700 : 500,
+                py: 2.5,
+                px: 1,
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: 2
+                },
+                ...(isActive && {
+                  boxShadow: 3
+                })
+              }}
+            />
+          );
+        })}
+      </Stack>
+    </Box>
   );
 };
 

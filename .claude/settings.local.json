@@ -4,7 +4,18 @@
       "Bash(npx cap:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nMise à jour Capacitor v4 vers v6 et configuration Android/iOS\n\n- Mise à jour @capacitor/* packages vers v6.0.0\n- Configuration Android: targetSdk 34, minSdk 30, Java 17, Gradle 8.4\n- Mise à jour des configurations iOS pour Capacitor v6\n- Ajout du fichier CLAUDE.md pour la documentation du projet\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(npm install:*)",
+      "Bash(npm start)",
+      "Bash(timeout /t 15 /nobreak)",
+      "Bash(ping:*)",
+      "Bash(nul)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd //c \"taskkill /F /PID 31672\")",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_take_screenshot"
     ],
     "deny": [],
     "ask": []
