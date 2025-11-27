@@ -8,8 +8,7 @@ const Login = ({ setUser, setMessage }) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmitForm = async (e) => {
-    e.preventDefault();
+  const handleSubmitForm = async () => {
     setLoading(true);
     const response = await CallAxios.auth(credentials);
     if (response && response.data.status === 200) {
