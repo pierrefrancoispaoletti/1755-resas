@@ -20,7 +20,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            // TODO: Configure proper release signing
+            // For now, remove debug signing to prevent accidental release with debug key
+            // signingConfig signingConfigs.release
         }
     }
 }
