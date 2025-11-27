@@ -19,5 +19,8 @@
 	"cordova": {},
 	"server": {
 		"androidScheme": "https"
-	}
+	},
+	"packageClassList": [
+		"PushNotificationsPlugin"
+	]
 }
