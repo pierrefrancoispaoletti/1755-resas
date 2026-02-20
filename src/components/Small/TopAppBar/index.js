@@ -6,40 +6,45 @@ import {
   IconButton,
   Box,
   Tooltip,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import {
   MenuBook as MenuBookIcon,
   Logout as LogoutIcon,
-  Login as LoginIcon
+  Login as LoginIcon,
 } from "@mui/icons-material";
 import { logout } from "../../../utils";
+import { useApp } from "../../../context/AppContext";
+import { useConfig } from "../../../context/ConfigContext";
 
-const TopAppBar = ({ user, loading, setUser, setMessage }) => {
+const TopAppBar = () => {
+  const { user, setUser, setMessage } = useApp();
+  const { loading } = useConfig();
+
   return (
     <AppBar
       position="static"
       sx={{
-        backgroundColor: 'background.default',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-        mb: 1
+        backgroundColor: "background.default",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+        mb: 1,
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1, sm: 2 } }}>
+      <Toolbar sx={{ justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
         {/* Logo - Left side */}
         <Box
           component={RouterLink}
           to="/"
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            textDecoration: 'none',
-            '&:focus': {
-              outline: '2px solid',
-              outlineColor: 'primary.main',
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            "&:focus": {
+              outline: "2px solid",
+              outlineColor: "primary.main",
               outlineOffset: 2,
-              borderRadius: 1
-            }
+              borderRadius: 1,
+            },
           }}
           aria-label="Retour à l'accueil"
         >
@@ -49,18 +54,18 @@ const TopAppBar = ({ user, loading, setUser, setMessage }) => {
             alt="Logo Restaurant Le 1755"
             sx={{
               height: { xs: 60, sm: 70 },
-              width: 'auto',
-              cursor: 'pointer',
-              transition: 'transform 0.2s',
-              '&:hover': {
-                transform: 'scale(1.05)'
-              }
+              width: "auto",
+              cursor: "pointer",
+              transition: "transform 0.2s",
+              "&:hover": {
+                transform: "scale(1.05)",
+              },
             }}
           />
         </Box>
 
         {/* Actions - Right side */}
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box sx={{ display: "flex", gap: 1 }}>
           {/* Login/Logout Button */}
           {!user ? (
             <Tooltip title="Se connecter" arrow>
@@ -71,11 +76,11 @@ const TopAppBar = ({ user, loading, setUser, setMessage }) => {
                 disabled={loading}
                 aria-label="Se connecter"
                 sx={{
-                  color: 'text.secondary',
-                  '&:hover': {
-                    color: 'primary.light',
-                    backgroundColor: 'action.hover'
-                  }
+                  color: "text.secondary",
+                  "&:hover": {
+                    color: "primary.light",
+                    backgroundColor: "action.hover",
+                  },
                 }}
               >
                 {loading ? (
@@ -93,10 +98,10 @@ const TopAppBar = ({ user, loading, setUser, setMessage }) => {
                 onClick={() => logout(setUser, setMessage)}
                 aria-label="Se déconnecter"
                 sx={{
-                  '&:hover': {
-                    backgroundColor: 'error.dark',
-                    color: 'error.contrastText'
-                  }
+                  "&:hover": {
+                    backgroundColor: "error.dark",
+                    color: "error.contrastText",
+                  },
                 }}
               >
                 {loading ? (
@@ -118,10 +123,10 @@ const TopAppBar = ({ user, loading, setUser, setMessage }) => {
                 disabled={loading}
                 aria-label="Voir les réservations"
                 sx={{
-                  '&:hover': {
-                    backgroundColor: 'primary.main',
-                    color: 'primary.contrastText'
-                  }
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                    color: "primary.contrastText",
+                  },
                 }}
               >
                 {loading ? (

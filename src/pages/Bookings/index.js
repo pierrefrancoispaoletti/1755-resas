@@ -1,11 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
+import { Box } from "@mui/material";
 import { tokenName } from "../../_const/index";
-import { useEffect } from "react";
-import { useState } from "react";
 import CallAxios from "../../database/index";
 import BookingItem from "../../components/Small/BookingItem/index";
 import BookingControls from "../../components/Small/BookingControls";
-import { Divider } from "semantic-ui-react";
 import { calculateDate } from "../../utils";
 import FilterButtons from "../../components/Small/FilterButtons";
 import { bookingsFilter } from "../../utils/index";
@@ -14,13 +12,11 @@ import { Capacitor } from "@capacitor/core";
 import NoBookings from "../../components/Small/NoBookings";
 import jwt_decode from "jwt-decode";
 import { getBookings, postAdminRegistrationToken } from "../../methods";
+import { useApp } from "../../context/AppContext";
 
-const Bookings = ({
-  setMessage,
-  bookings,
-  setBookings,
-  pushNotificationToken,
-}) => {
+const Bookings = () => {
+  const { setMessage, pushNotificationToken } = useApp();
+  const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(0);
 
@@ -39,12 +35,9 @@ const Bookings = ({
 
       PushNotifications.removeAllDeliveredNotifications();
     }
-    // dans /methods
     getBookings(setLoading, setBookings, setMessage, token);
   }, []);
 
-  // appel qui modifie ma valeur du champs bookingValidatedByAdmin a true ou false
-  // dans le but de valider ou de refuser la reservation
   const handleValidateBooking = async (booking, value) => {
     setLoading(true);
     const token = localStorage.getItem(`token-${tokenName}`);
@@ -59,13 +52,10 @@ const Bookings = ({
       bookings.splice(index, 1);
 
       setBookings([...bookings, updatedBooking]);
-
       setLoading(false);
-
       setMessage({ success: true, message: message });
     } else {
       setLoading(false);
-
       setMessage({ success: false, message: "Il y à eu un problème" });
     }
   };
@@ -81,50 +71,40 @@ const Bookings = ({
       const { deletedBooking, message } = response.data;
 
       let index = bookings.findIndex((b) => b._id === deletedBooking._id);
-
       bookings.splice(index, 1);
 
       setBookings([...bookings]);
-
       setLoading(false);
-
       setMessage({ success: true, message: message });
     } else {
       setLoading(false);
-
       setMessage({ success: false, message: "Il y à eu un problème" });
     }
   };
+
   return (
-    <div>
+    <Box sx={{ maxWidth: 800, mx: "auto", px: { xs: 1, sm: 2 }, py: 2 }}>
       <FilterButtons
         setFilter={setFilter}
         bookings={bookings}
-        filter={filter}
+        currentFilter={filter}
       />
       {bookings.length > 0 &&
-        //filtre les reservations par la date et un filtre (0 1 2 -1)
-        bookingsFilter(bookings, calculateDate, filter).map((booking) => {
-          return (
-            <>
-              <BookingControls
-                booking={booking}
-                loading={loading}
-                handleValidateBooking={handleValidateBooking}
-                handleDeleteBooking={handleDeleteBooking}
-              />
-              <BookingItem {...booking} loading={loading} />
-              <Divider />
-            </>
-          );
-        })}
+        bookingsFilter(bookings, calculateDate, filter).map((booking) => (
+          <Box key={booking._id} sx={{ mb: 2 }}>
+            <BookingControls
+              booking={booking}
+              loading={loading}
+              handleValidateBooking={handleValidateBooking}
+              handleDeleteBooking={handleDeleteBooking}
+            />
+            <BookingItem {...booking} loading={loading} />
+          </Box>
+        ))}
       {bookingsFilter(bookings, calculateDate, filter).length === 0 && (
-        //dans ce composant on pourrait afficher un message plus personalisé d'absence de resa
-        // par ex il n'y a pas de reservations demain, pas de reservations a l'horizon,
-        // pas de reservation aujourd'hui... etc ....
-        <NoBookings />
+        <NoBookings filter={filter} />
       )}
-    </div>
+    </Box>
   );
 };
 

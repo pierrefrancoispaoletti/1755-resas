@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import { Header, Transition } from "semantic-ui-react";
+import { Box, Collapse, Paper, Typography } from "@mui/material";
+import { EventBusy as EventBusyIcon } from "@mui/icons-material";
 
 import CallAxios from "../../database/index";
-
 import { tokenName } from "../../_const/index";
 
 import BookingSwitch from "../../components/Small/BookingSwitch";
@@ -12,16 +11,14 @@ import AddBookingForm from "../../components/Forms/AddBooking-form";
 import HomeHeader from "../../components/Small/HomeHeader";
 import HomeMadeLoader from "../../components/Small/HomeMadeLoader";
 
-import "../styles/home.css";
+import { useApp } from "../../context/AppContext";
+import { useConfig } from "../../context/ConfigContext";
 
-const Home = ({
-  user,
-  setMessage,
-  resaOpen,
-  config,
-  setConfig,
-  pushNotificationToken,
-}) => {
+const Home = () => {
+  const { user, setMessage, pushNotificationToken } = useApp();
+  const { config, setConfig } = useConfig();
+  const { resaOpen } = config;
+
   const [booking, setBooking] = useState({
     bookerName: "",
     bookerNumber: "",
@@ -35,6 +32,7 @@ const Home = ({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
   useEffect(() => {
     let today = new Date();
     let dd = `0${today.getDate()}`.slice(-2);
@@ -42,12 +40,13 @@ const Home = ({
     let year = today.getFullYear();
     let time = "18:00";
 
-    setBooking({
-      ...booking,
+    setBooking((prev) => ({
+      ...prev,
       bookingDate: `${year}-${mm}-${dd}`,
       bookingTime: time,
-    });
+    }));
   }, []);
+
   const handleEmptyForm = () => {
     setBooking({
       bookerName: "",
@@ -62,7 +61,6 @@ const Home = ({
     setLoading(false);
   };
 
-  // gestion de la dispo des resas
   const handleChangeResaOpen = async () => {
     setLoading(true);
     const update = { _id: config._id, resaOpen: !config.resaOpen };
@@ -81,15 +79,14 @@ const Home = ({
     }
   };
 
-  // soumission du formulaire d'ajour de resa
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (data) => {
+    const bookingData = { ...data };
     if (pushNotificationToken) {
-      booking.pushNotificationToken = pushNotificationToken;
+      bookingData.pushNotificationToken = pushNotificationToken;
     }
 
     setLoading(true);
-    const response = await CallAxios.postBooking(booking);
+    const response = await CallAxios.postBooking(bookingData);
     if (response && response.data.status === 200) {
       setLoading(false);
       setMessage({ success: true, message: response.data.message });
@@ -108,7 +105,17 @@ const Home = ({
   };
 
   return (
-    <div className="home">
+    <Box
+      sx={{
+        maxWidth: 680,
+        mx: "auto",
+        px: { xs: 2, sm: 3 },
+        py: 3,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {user === "isAdmin" && (
         <BookingSwitch
           resaOpen={resaOpen}
@@ -121,32 +128,50 @@ const Home = ({
       {!loading && resaOpen ? (
         <>
           <HomeHeader success={success} error={error} />
-          {!success && !error && resaOpen && (
-            <Transition
-              animation="fade down"
-              duration={300}
-              visible={!success || !error}
-            >
-              <AddBookingForm
-                handleSubmit={handleSubmit}
-                setBooking={setBooking}
-                booking={booking}
-                loading={loading}
-              />
-            </Transition>
-          )}
+          <Collapse in={!success && !error} timeout={300} sx={{ width: "100%" }}>
+            <AddBookingForm
+              handleSubmit={handleSubmit}
+              setBooking={setBooking}
+              booking={booking}
+              loading={loading}
+            />
+          </Collapse>
           {(error || success) && (
             <EmptyFormButton handleEmptyForm={handleEmptyForm} />
           )}
         </>
       ) : (
         !loading && (
-          <Header as="h1" className="homeheader">
-            Les réservations sont désactivées pour le moment , revenez demain !
-          </Header>
+          <Paper
+            elevation={2}
+            sx={{
+              p: 4,
+              textAlign: "center",
+              backgroundColor: "background.paper",
+              borderRadius: 3,
+              width: "100%",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <EventBusyIcon sx={{ fontSize: 64, color: "text.disabled" }} />
+              <Typography variant="h6" sx={{ color: "text.secondary", fontWeight: 500 }}>
+                Les réservations sont désactivées pour le moment
+              </Typography>
+              <Typography variant="body2" sx={{ color: "text.disabled" }}>
+                Revenez demain !
+              </Typography>
+            </Box>
+          </Paper>
         )
       )}
-    </div>
+    </Box>
   );
 };
 

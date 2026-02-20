@@ -87,10 +87,8 @@ const AddBookingForm = ({ handleSubmit: onSubmitCallback, booking, setBooking, l
 
   // Fonction de soumission
   const onSubmit = (data) => {
-    // Mettre à jour l'état booking avec les données validées
-    setBooking({ ...booking, ...data });
-    // Appeler la fonction de soumission originale
-    onSubmitCallback();
+    setBooking((prev) => ({ ...prev, ...data }));
+    onSubmitCallback(data);
   };
 
   // Formater le numéro de téléphone pendant la saisie

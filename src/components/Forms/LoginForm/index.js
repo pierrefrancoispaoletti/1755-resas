@@ -55,10 +55,8 @@ const LoginForm = ({
 
   // Fonction de soumission
   const onSubmit = (data) => {
-    // Mettre à jour l'état credentials avec les données validées
     setCredentials(data);
-    // Appeler la fonction de soumission originale
-    handleSubmitForm();
+    handleSubmitForm(data);
   };
 
   const handleTogglePassword = () => {

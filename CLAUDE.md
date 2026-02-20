@@ -62,13 +62,27 @@ npx cap add ios
 
 ### State Management
 
-The app uses React's built-in state management (useState/useEffect) without external libraries. Key global state is managed in App.js and passed down via props:
+Global state is managed via Context API (no external state library). Page-level state uses `useState`.
 
-- `user` - Current user role (admin/user) - controls access to /bookings route
-- `message` - Toast notifications (auto-clear after 3s)
-- `config` - Application configuration from backend (includes `resaOpen` status)
-- `bookings` - List of all bookings (admin only)
-- `pushNotificationToken` - FCM/APNS registration token for push notifications
+**Context files in `src/context/`:**
+
+- **`AppContext.js`** → `AppProvider` + `useApp()` hook
+  - Owns: `user`, `setUser`, `message`, `setMessage`, `pushNotificationToken`, `setPushNotificationToken`
+  - Effects: auto-clear message after 3s, auto-reconnect on mount (JWT validation), Capacitor push notification registration
+- **`ConfigContext.js`** → `ConfigProvider` + `useConfig()` hook
+  - Owns: `config` (fetched via React Query), `loading`, `setConfig`
+  - Uses `useQuery(['config'])` from React Query for `getConfig()` API call
+  - `setConfig(newConfig)` updates the React Query cache via `queryClient.setQueryData`
+- **`QueryProvider.js`** → wraps `QueryClientProvider` with a pre-configured `QueryClient`
+
+**Provider nesting order in `src/index.js`:**
+```
+QueryProvider → ThemeProvider → AppProvider → ConfigProvider → Router → App
+```
+
+**Page-level state:**
+- `bookings` - List of all bookings (local to Bookings page)
+- Form state - Local to each page (Home, Login)
 
 ### Authentication Flow
 
@@ -93,8 +107,8 @@ All methods return response object or `false` on error.
 
 Push notifications are handled via `@capacitor/push-notifications`:
 
-- Registration happens on app load in App.js (only on native platforms)
-- Token saved to `pushNotificationToken` state
+- Registration happens on app load in `AppContext.js` (only on native platforms)
+- Token saved to `pushNotificationToken` state in AppContext
 - Admin users register their device token on Bookings page load
 - Notifications cleared when viewing bookings page
 
@@ -147,7 +161,7 @@ Located in `capacitor.config.json`:
 - `react-hook-form` v7.54.2 - Performant form library
 - `@hookform/resolvers` v3.9.1 - Validation resolver integration
 - `yup` v1.4.0 - Schema validation library
-- `@tanstack/react-query` v5.62.12 - Server state management (to be implemented)
+- `@tanstack/react-query` v5.62.12 - Server state management (implemented for config)
 
 **Created Design System:**
 - `src/theme/palette.js` - Complete color palette (dark mode primary, preserves restaurant's darkred/gold brand)
@@ -203,40 +217,41 @@ All components successfully migrated from Semantic UI to Material-UI with modern
 
 ### Remaining Work
 
-#### Phase 3: Cleanup & Optimization (⏳ PENDING)
+#### Phase 3: Cleanup & Optimization (✅ COMPLETED)
 
 **Remove Legacy Dependencies:**
-- [ ] Uninstall `semantic-ui-react` and `semantic-ui-css`
-- [ ] Uninstall `@fortawesome/fontawesome-svg-core`, `@fortawesome/free-brands-svg-icons`, `@fortawesome/react-fontawesome` (replaced by MUI Icons)
-- [ ] Remove all external CSS files from `src/components/styles/`
+- [x] Uninstalled `semantic-ui-react` and `semantic-ui-css`
+- [x] Uninstalled `@fortawesome/fontawesome-svg-core`, `@fortawesome/free-brands-svg-icons`, `@fortawesome/react-fontawesome` (replaced by MUI Icons)
+- [x] Removed all legacy CSS files from `src/components/styles/` and `src/pages/styles/`
 
 **State Management Modernization:**
-- [ ] Implement Context API for global state (user, message, config) - reduce prop drilling
-- [ ] Implement React Query for server state management (bookings, config)
-  - Automatic background refetching
-  - Optimistic updates
-  - Cache management
-  - Loading/error states
+- [x] Implemented Context API — `AppContext` (user, message, push token) + `ConfigContext` (config via React Query)
+- [x] React Query `useQuery(['config'])` fetches and caches app config
+- [x] `ConfigContext.setConfig()` updates React Query cache for optimistic local updates
 
 **Performance Optimization:**
-- [ ] Add code splitting with React.lazy() for pages
-- [ ] Implement React Query for API calls (bookings, config)
-- [ ] Run bundle analysis to identify optimization opportunities
+- [x] Code splitting with `React.lazy()` for Home, Login, Bookings pages
+- [x] `<Suspense>` fallback with `HomeMadeLoader` in App.js
+- [x] CSS bundle reduced by 96.64 kB (Semantic UI CSS removed)
 
-#### Phase 4: Testing & QA (⏳ PENDING)
+#### Phase 4: Testing & QA (✅ UNIT TESTS COMPLETE)
 
-**Integration Testing:**
-- [ ] Set up Playwright for E2E testing
-- [ ] Test booking creation flow (form validation, submission, confirmation)
-- [ ] Test admin authentication flow (login, logout, token validation)
-- [ ] Test booking management (accept, reject, delete)
-- [ ] Test filter functionality (all 4 filter states)
-- [ ] Test responsive design (mobile, tablet, desktop)
+**Unit Tests written (55 tests, 6 suites — all passing):**
+- [x] `src/utils/index.test.js` — `calculateDate` (5 branches), `bookingsFilter` (5 cases), `reconnector` (4 cases), `logout`
+- [x] `src/context/AppContext.test.js` — default values, setUser, setMessage, auto-clear timer (fake timers), error boundary
+- [x] `src/components/Small/FilterButtons/FilterButtons.test.js` — 4 chips, counts, click handlers, active state, empty list
+- [x] `src/components/Small/BookingItem/BookingItem.test.js` — status chips, links, pluralization, contact info
+- [x] `src/components/Forms/LoginForm/LoginForm.test.js` — validation, password toggle, disabled states, submit
+- [x] `src/components/Forms/AddBooking-form/AddBookingForm.test.js` — happy path, 3 validation errors, disabled states
 
-**Accessibility Audit:**
-- [ ] Lighthouse accessibility score (target: 95+)
-- [ ] Screen reader testing
-- [ ] Keyboard navigation testing
+**Test infrastructure:**
+- `src/setupTests.js` — imports `@testing-library/jest-dom` globally
+- `src/test-utils/renderWithProviders.js` — custom render wrapping QueryClient + ThemeProvider + AppProvider + MemoryRouter
+
+**Still pending:**
+- [ ] E2E testing with Playwright (booking flow, admin auth, booking management)
+- [ ] Lighthouse accessibility audit (target: 95+)
+- [ ] Screen reader and keyboard navigation testing
 
 #### Phase 5: Nice-to-Have Enhancements (🔮 OPTIONAL)
 

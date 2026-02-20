@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "1755 RESA",
+  "name": "Le 1755 — Réservations Baravin",
+  "description": "Application de réservation en ligne pour le restaurant Baravin 1755 à Ajaccio",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#8B0000",
+  "background_color": "#2B2B29"
 }

@@ -1,160 +1,42 @@
-import React, { useEffect, useState } from "react";
-
-// react router
+import React, { Suspense, lazy } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { Box } from "@mui/material";
 
-//components
 import Copyright from "../Copyright";
 import TopAppBar from "../Small/TopAppBar";
 import Toast from "../Small/Toasts";
+import HomeMadeLoader from "../Small/HomeMadeLoader";
 
-//semantic
-import { Divider } from "semantic-ui-react";
+import { useApp } from "../../context/AppContext";
 
-//pages
-import Login from "../../pages/Login";
-import Bookings from "../../pages/Bookings/index";
-import Home from "../../pages/Home";
-
-// database
-import CallAxios from "../../database/index";
-
-//capacitor
-import { PushNotifications } from "@capacitor/push-notifications";
-import { Capacitor } from "@capacitor/core";
-
-//const
-import { tokenName } from "../../_const";
-
-//utils
-import { reconnector } from "../../utils";
-
-//styles
-import "../styles/app.css";
+const Home = lazy(() => import("../../pages/Home"));
+const Login = lazy(() => import("../../pages/Login"));
+const Bookings = lazy(() => import("../../pages/Bookings"));
 
 const App = () => {
-  const [user, setUser] = useState("");
-  const [message, setMessage] = useState({});
-  const [config, setConfig] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [bookings, setBookings] = useState([]);
-  const [pushNotificationToken, setPushNotificationToken] = useState("");
-
-  useEffect(() => {
-    if (Object.keys(message).length !== 0) {
-      setTimeout(() => {
-        setMessage({});
-      }, 3000);
-    }
-  }, [message]);
-
-  useEffect(() => {
-    const token = localStorage.getItem(`token-${tokenName}`);
-    if (token && reconnector(token, setUser)) {
-      setMessage({
-        success: true,
-        message: "Re-Connécté",
-      });
-    } else {
-      setUser("");
-      localStorage.removeItem(`token-${tokenName}`);
-    }
-
-    async function getConfig() {
-      setLoading(true);
-      const response = await CallAxios.getConfig();
-
-      if (response && response.data.status === 200) {
-        setConfig(response.data.config);
-        setLoading(false);
-      } else {
-        setLoading(false);
-        setMessage({
-          success: false,
-          message:
-            "Impossible de récupérer la configuration, contacter l'administrateur",
-        });
-      }
-    }
-    getConfig();
-  }, []);
-
-  useEffect(() => {
-    if (Capacitor.isNativePlatform()) {
-      PushNotifications.requestPermissions().then((result) => {
-        if (result.receive === "granted") {
-          // Register with Apple / Google to receive push via APNS/FCM
-          PushNotifications.register();
-        } else {
-          return;
-        }
-      });
-
-      PushNotifications.addListener("registration", (Token) => {
-        setPushNotificationToken(Token.value);
-      });
-
-      PushNotifications.addListener("registrationError", (error) => {});
-
-      PushNotifications.addListener(
-        "pushNotificationReceived",
-        (PushNotificationSchema) => {}
-      );
-
-      PushNotifications.addListener(
-        "pushNotificationActionPerformed",
-        (ActionPerformed) => {}
-      );
-    }
-  }, []);
+  const { user, message } = useApp();
 
   return (
-    <div className="app">
-      <TopAppBar
-        user={user}
-        loading={loading}
-        setUser={setUser}
-        setMessage={setMessage}
-      />
-      <Divider />
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <TopAppBar />
       <Toast message={message} />
-      <Switch>
-        <Route exact path="/">
-          <Home
-            pushNotificationToken={pushNotificationToken}
-            setPushNotificationToken={setPushNotificationToken}
-            user={user}
-            message={message}
-            setMessage={setMessage}
-            resaOpen={config.resaOpen}
-            config={config}
-            setConfig={setConfig}
-          />
-        </Route>
-        <Route path="/login">
-          {!user ? (
-            <Login setUser={setUser} setMessage={setMessage} />
-          ) : (
-            <Redirect to="/bookings" />
-          )}
-        </Route>
-        <Route path="/bookings">
-          {!user ? (
-            <Redirect to="/login" />
-          ) : (
-            <Bookings
-              setUser={setUser}
-              pushNotificationToken={pushNotificationToken}
-              setMessage={setMessage}
-              bookings={bookings}
-              setBookings={setBookings}
-            />
-          )}
-        </Route>
-      </Switch>
-      <Divider />
+      <Box component="main" sx={{ flex: 1, py: 2 }}>
+        <Suspense fallback={<HomeMadeLoader loading={true} />}>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              {!user ? <Login /> : <Redirect to="/bookings" />}
+            </Route>
+            <Route path="/bookings">
+              {!user ? <Redirect to="/login" /> : <Bookings />}
+            </Route>
+          </Switch>
+        </Suspense>
+      </Box>
       <Copyright />
-    </div>
+    </Box>
   );
 };
 
