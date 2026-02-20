@@ -25,9 +25,10 @@ const Copyright = () => {
         mt: 'auto',
         py: { xs: 3, sm: 4 },
         px: { xs: 2, sm: 3 },
-        backgroundColor: 'background.paper',
-        borderTop: '1px solid',
-        borderColor: 'divider'
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderTop: '1px solid rgba(218, 165, 32, 0.25)',
       }}
     >
       {/* Section Réseaux Sociaux */}
@@ -36,7 +37,7 @@ const Copyright = () => {
           variant="h6"
           component="h3"
           sx={{
-            fontFamily: 'typography.fontFamilySubtitle',
+            fontFamily: '"Josefin Sans", sans-serif',
             textAlign: 'center',
             color: 'text.primary'
           }}
@@ -85,7 +86,7 @@ const Copyright = () => {
         </Stack>
       </Stack>
 
-      <Divider sx={{ my: 3, borderColor: 'divider' }} />
+      <Divider sx={{ my: 3, borderColor: 'rgba(218, 165, 32, 0.25)' }} />
 
       {/* Section Contact */}
       <Stack spacing={2} alignItems="center">
@@ -93,7 +94,7 @@ const Copyright = () => {
           variant="h6"
           component="h3"
           sx={{
-            fontFamily: 'typography.fontFamilySubtitle',
+            fontFamily: '"Josefin Sans", sans-serif',
             textAlign: 'center',
             color: 'text.primary'
           }}
@@ -123,7 +124,7 @@ const Copyright = () => {
             href="tel:0609542757"
             aria-label="Appelez-nous au 06 09 54 27 57"
             sx={{
-              color: 'primary.main',
+              color: 'secondary.main',
               '&:hover': {
                 backgroundColor: 'action.hover',
                 transform: 'scale(1.1)'
@@ -136,7 +137,7 @@ const Copyright = () => {
         </Stack>
       </Stack>
 
-      <Divider sx={{ my: 3, borderColor: 'divider' }} />
+      <Divider sx={{ my: 3, borderColor: 'rgba(218, 165, 32, 0.25)' }} />
 
       {/* Section Copyright */}
       <Box sx={{ textAlign: 'center' }}>
@@ -144,7 +145,7 @@ const Copyright = () => {
           variant="body2"
           sx={{
             color: 'text.secondary',
-            fontFamily: 'typography.fontFamilySubtitle',
+            fontFamily: '"Josefin Sans", sans-serif',
             mb: 1
           }}
         >
@@ -157,7 +158,7 @@ const Copyright = () => {
               color: 'text.primary',
               textDecoration: 'none',
               '&:hover': {
-                color: 'primary.main',
+                color: 'secondary.main',
                 textDecoration: 'underline'
               }
             }}
@@ -178,7 +179,7 @@ const Copyright = () => {
             textDecoration: 'none',
             fontSize: '0.875rem',
             '&:hover': {
-              color: 'primary.main'
+              color: 'secondary.main'
             },
             transition: 'color 0.2s'
           }}
@@ -187,7 +188,7 @@ const Copyright = () => {
           <FavoriteIcon
             sx={{
               fontSize: 20,
-              color: 'primary.main',
+              color: 'secondary.main',
               animation: 'heartbeat 1.5s ease-in-out infinite',
               '@keyframes heartbeat': {
                 '0%, 100%': { transform: 'scale(1)' },

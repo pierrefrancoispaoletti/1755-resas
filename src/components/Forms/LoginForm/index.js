@@ -71,7 +71,10 @@ const LoginForm = ({
         maxWidth: 450,
         mx: 'auto',
         p: { xs: 3, sm: 4 },
-        borderRadius: 3
+        borderRadius: 3,
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        boxShadow: '0 8px 40px rgba(0, 0, 0, 0.50)',
       }}
     >
       <Stack spacing={3} alignItems="center" mb={3}>
@@ -80,10 +83,12 @@ const LoginForm = ({
             width: 64,
             height: 64,
             borderRadius: '50%',
-            backgroundColor: 'primary.main',
+            background: 'linear-gradient(135deg, #5C0000, #8B0000)',
+            border: '2px solid rgba(218, 165, 32, 0.40)',
+            boxShadow: '0 0 20px rgba(218, 165, 32, 0.20)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}
         >
           <LockIcon sx={{ fontSize: 32, color: 'white' }} />
@@ -94,7 +99,7 @@ const LoginForm = ({
           sx={{
             fontWeight: 700,
             color: 'text.primary',
-            fontFamily: 'typography.fontFamilyHeading'
+            fontFamily: '"Dancing Script", cursive',
           }}
         >
           Connexion
@@ -195,10 +200,8 @@ const LoginForm = ({
               fontWeight: 600,
               borderRadius: 3,
               textTransform: 'none',
-              boxShadow: 3,
               '&:hover': {
-                boxShadow: 6,
-                transform: 'translateY(-2px)'
+                transform: 'translateY(-2px)',
               },
               transition: 'all 0.2s'
             }}

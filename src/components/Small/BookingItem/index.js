@@ -30,7 +30,7 @@ const BookingItem = ({
   // Déterminer la couleur et le texte selon le statut
   const getStatusConfig = () => {
     if (bookingValidatedByAdmin === null) {
-      return { color: 'primary', label: 'New !', borderColor: 'primary.main', animate: true };
+      return { color: 'primary', label: 'New !', borderColor: 'rgba(218, 165, 32, 0.50)', animate: true };
     }
     if (bookingValidatedByAdmin === true) {
       return { color: 'success', label: 'Acceptée', borderColor: 'success.main', animate: false };
@@ -51,7 +51,7 @@ const BookingItem = ({
         transition: 'all 0.3s ease',
         '&:hover': {
           transform: 'translateY(-4px)',
-          boxShadow: 6
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.40)',
         }
       }}
     >
@@ -71,10 +71,19 @@ const BookingItem = ({
             fontWeight: 700,
             fontSize: '0.75rem',
             ...(statusConfig.animate && {
-              animation: 'pulse 2s ease-in-out infinite',
-              '@keyframes pulse': {
-                '0%, 100%': { transform: 'scale(1)' },
-                '50%': { transform: 'scale(1.05)' }
+              background: 'linear-gradient(135deg, #B8860B, #DAA520, #FFD700)',
+              color: '#000',
+              boxShadow: '0 0 12px rgba(218, 165, 32, 0.50)',
+              animation: 'goldPulse 2s ease-in-out infinite',
+              '@keyframes goldPulse': {
+                '0%, 100%': {
+                  transform: 'scale(1)',
+                  boxShadow: '0 0 8px rgba(218, 165, 32, 0.40)',
+                },
+                '50%': {
+                  transform: 'scale(1.05)',
+                  boxShadow: '0 0 20px rgba(218, 165, 32, 0.70)',
+                }
               }
             })
           }}
@@ -107,10 +116,10 @@ const BookingItem = ({
                   size="small"
                   aria-label={`Appeler ${bookerName} au ${bookerPhoneNumber}`}
                   sx={{
-                    color: 'primary.main',
+                    color: '#DAA520',
                     '&:hover': {
-                      backgroundColor: 'primary.light',
-                      color: 'primary.contrastText'
+                      backgroundColor: 'rgba(218, 165, 32, 0.15)',
+                      color: '#FFD700',
                     }
                   }}
                 >

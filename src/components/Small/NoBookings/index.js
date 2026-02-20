@@ -30,7 +30,6 @@ const NoBookings = ({ filter = 0 }) => {
       sx={{
         p: 4,
         textAlign: "center",
-        backgroundColor: "background.paper",
         borderRadius: 3,
       }}
     >
@@ -45,7 +44,8 @@ const NoBookings = ({ filter = 0 }) => {
         <EventBusyIcon
           sx={{
             fontSize: 64,
-            color: "text.disabled",
+            color: 'secondary.dark',
+            filter: 'drop-shadow(0 0 8px rgba(218, 165, 32, 0.30))',
           }}
         />
         <Typography

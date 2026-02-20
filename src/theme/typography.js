@@ -63,20 +63,21 @@ const typography = {
     fontSize: '1.5rem', // 24px
     fontWeight: 600,
     lineHeight: 1.4,
-    letterSpacing: '0.00735em',
+    letterSpacing: '0.05em',
   },
   h5: {
     fontFamily: '"Josefin Sans", sans-serif',
     fontSize: '1.25rem', // 20px
     fontWeight: 600,
     lineHeight: 1.5,
+    letterSpacing: '0.06em',
   },
   h6: {
     fontFamily: '"Josefin Sans", sans-serif',
     fontSize: '1rem', // 16px
     fontWeight: 600,
     lineHeight: 1.6,
-    letterSpacing: '0.0075em',
+    letterSpacing: '0.08em',
   },
 
   // Body text
@@ -110,7 +111,7 @@ const typography = {
     fontSize: '0.75rem',
     fontWeight: 600,
     lineHeight: 2.66,
-    letterSpacing: '0.08333em',
+    letterSpacing: '0.20em',
     textTransform: 'uppercase',
   },
 

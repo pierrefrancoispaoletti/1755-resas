@@ -29,11 +29,11 @@ export const colors = {
   warning: '#FF9800',
   info: '#2196F3',
 
-  // Arrière-plans (dark mode)
+  // Arrière-plans glass profond
   background: {
-    default: '#2B2B29',
-    paper: '#353533',
-    elevated: '#3D3D3B',
+    default: '#0f0a0a',
+    paper: 'rgba(255, 255, 255, 0.06)',
+    elevated: 'rgba(255, 255, 255, 0.10)',
   },
 
   // Texte
@@ -58,6 +58,16 @@ export const colors = {
     800: '#424242',
     900: '#212121',
   },
+};
+
+export const glass = {
+  surface: 'rgba(255, 255, 255, 0.06)',
+  surfaceHover: 'rgba(255, 255, 255, 0.10)',
+  border: 'rgba(255, 255, 255, 0.10)',
+  borderGold: 'rgba(218, 165, 32, 0.25)',
+  glow: 'rgba(218, 165, 32, 0.15)',
+  glowStrong: 'rgba(218, 165, 32, 0.30)',
+  blur: 'blur(16px)',
 };
 
 export const spacing = {
@@ -96,10 +106,12 @@ export const borderRadius = {
 
 export const shadows = {
   none: 'none',
-  small: '0 2px 8px rgba(0, 0, 0, 0.1)',
-  medium: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  large: '0 6px 20px rgba(0, 0, 0, 0.15)',
-  hover: '0 8px 24px rgba(0, 0, 0, 0.2)',
+  small: '0 2px 8px rgba(0, 0, 0, 0.3)',
+  medium: '0 4px 12px rgba(0, 0, 0, 0.4)',
+  large: '0 6px 20px rgba(0, 0, 0, 0.5)',
+  hover: '0 8px 24px rgba(0, 0, 0, 0.6)',
+  goldGlow: '0 0 20px rgba(218, 165, 32, 0.30)',
+  goldGlowStrong: '0 0 40px rgba(218, 165, 32, 0.50)',
 };
 
 export const typography = {
@@ -172,6 +184,7 @@ export const zIndex = {
 // Export d'un objet contenant tous les tokens
 const tokens = {
   colors,
+  glass,
   spacing,
   borderRadius,
   shadows,

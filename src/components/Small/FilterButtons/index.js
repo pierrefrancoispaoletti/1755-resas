@@ -37,7 +37,17 @@ const FilterButtons = ({ setFilter, bookings, currentFilter }) => {
   ];
 
   return (
-    <Box sx={{ mb: 3 }}>
+    <Box
+      sx={{
+        mb: 3,
+        p: { xs: 1.5, sm: 2 },
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        borderRadius: 3,
+      }}
+    >
       <Stack
         direction="row"
         spacing={1}

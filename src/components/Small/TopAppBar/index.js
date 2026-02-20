@@ -23,10 +23,8 @@ const TopAppBar = () => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{
-        backgroundColor: "background.default",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
         mb: 1,
       }}
     >
@@ -56,9 +54,10 @@ const TopAppBar = () => {
               height: { xs: 60, sm: 70 },
               width: "auto",
               cursor: "pointer",
-              transition: "transform 0.2s",
+              transition: "transform 0.2s, filter 0.2s",
               "&:hover": {
                 transform: "scale(1.05)",
+                filter: "drop-shadow(0 0 8px rgba(218, 165, 32, 0.50))",
               },
             }}
           />

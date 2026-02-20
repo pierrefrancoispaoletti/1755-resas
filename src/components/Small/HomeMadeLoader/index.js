@@ -19,14 +19,15 @@ const HomeMadeLoader = ({ loading }) => {
           size={60}
           thickness={4}
           sx={{
-            color: 'primary.main'
+            color: 'secondary.main',
+            filter: 'drop-shadow(0 0 8px rgba(218, 165, 32, 0.40))',
           }}
         />
         <Typography
           variant="h6"
           sx={{
             fontWeight: 600,
-            color: 'text.secondary',
+            color: 'secondary.main',
             letterSpacing: '0.1em',
             animation: 'pulse 1.5s ease-in-out infinite',
             '@keyframes pulse': {

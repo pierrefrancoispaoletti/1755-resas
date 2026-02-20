@@ -18,9 +18,20 @@ const BookingSwitch = ({ resaOpen, handleChangeResaOpen }) => {
       sx={{
         p: 2,
         mb: 3,
-        backgroundColor: resaOpen ? 'success.dark' : 'error.dark',
+        backgroundColor: resaOpen
+          ? 'rgba(27, 94, 32, 0.35)'
+          : 'rgba(92, 0, 0, 0.35)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: '1px solid',
+        borderColor: resaOpen
+          ? 'rgba(76, 175, 80, 0.40)'
+          : 'rgba(139, 0, 0, 0.40)',
         borderRadius: 2,
-        transition: 'all 0.3s ease'
+        transition: 'all 0.3s ease',
+        boxShadow: resaOpen
+          ? '0 4px 20px rgba(76, 175, 80, 0.20)'
+          : '0 4px 20px rgba(139, 0, 0, 0.20)',
       }}
     >
       <Box

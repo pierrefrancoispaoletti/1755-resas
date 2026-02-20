@@ -17,7 +17,13 @@ const App = () => {
   const { user, message } = useApp();
 
   return (
-    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <Box sx={{
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      background: 'radial-gradient(ellipse at top left, #2a0808 0%, #0f0a0a 45%, #0f0d00 100%)',
+      backgroundAttachment: 'fixed',
+    }}>
       <TopAppBar />
       <Toast message={message} />
       <Box component="main" sx={{ flex: 1, py: 2 }}>

@@ -9,12 +9,27 @@ import {
 const HomeHeader = ({ success, error }) => {
   // Déterminer l'état du header
   const getHeaderState = () => {
-    if (success) return { color: 'success.main', icon: CheckCircleIcon };
-    if (error) return { color: 'error.main', icon: ErrorIcon };
-    return { color: 'grey.600', icon: EventAvailableIcon };
+    if (success) return {
+      icon: CheckCircleIcon,
+      bg: 'rgba(27, 94, 32, 0.30)',
+      border: 'rgba(76, 175, 80, 0.45)',
+      glow: 'rgba(76, 175, 80, 0.30)',
+    };
+    if (error) return {
+      icon: ErrorIcon,
+      bg: 'rgba(139, 0, 0, 0.30)',
+      border: 'rgba(244, 67, 54, 0.45)',
+      glow: 'rgba(244, 67, 54, 0.30)',
+    };
+    return {
+      icon: EventAvailableIcon,
+      bg: 'rgba(255, 255, 255, 0.04)',
+      border: 'rgba(218, 165, 32, 0.25)',
+      glow: 'rgba(218, 165, 32, 0.15)',
+    };
   };
 
-  const { color, icon: IconComponent } = getHeaderState();
+  const { bg, border, glow, icon: IconComponent } = getHeaderState();
 
   // Déterminer le message
   const getMessage = () => {
@@ -31,19 +46,18 @@ const HomeHeader = ({ success, error }) => {
     <Paper
       elevation={3}
       sx={{
-        background: `linear-gradient(135deg, ${
-          success ? '#4CAF50' : error ? '#F44336' : '#757575'
-        } 0%, ${
-          success ? '#388E3C' : error ? '#D32F2F' : '#616161'
-        } 100%)`,
+        backgroundColor: bg,
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         borderRadius: 3,
         p: { xs: 2, sm: 3 },
         mb: 3,
-        border: '3px solid',
-        borderColor: color,
+        border: '1px solid',
+        borderColor: border,
+        boxShadow: `0 4px 24px ${glow}`,
         textAlign: 'center',
         transition: 'all 0.3s ease-in-out',
-        transform: success || error ? 'scale(1.02)' : 'scale(1)'
+        transform: success || error ? 'scale(1.02)' : 'scale(1)',
       }}
       role="status"
       aria-live="polite"
@@ -61,7 +75,7 @@ const HomeHeader = ({ success, error }) => {
           sx={{
             fontSize: { xs: 32, sm: 40 },
             color: 'white',
-            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))'
+            filter: `drop-shadow(0 0 8px ${glow})`
           }}
         />
         <Typography
@@ -74,7 +88,7 @@ const HomeHeader = ({ success, error }) => {
             letterSpacing: '0.05em',
             fontSize: { xs: '1.5rem', sm: '2rem' },
             textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-            fontFamily: 'typography.fontFamilyHeading'
+            fontFamily: '"Dancing Script", cursive',
           }}
         >
           {getMessage()}

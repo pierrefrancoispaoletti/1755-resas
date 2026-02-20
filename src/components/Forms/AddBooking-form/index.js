@@ -114,7 +114,12 @@ const AddBookingForm = ({ handleSubmit: onSubmitCallback, booking, setBooking, l
         width: '100%',
         maxWidth: 600,
         mx: 'auto',
-        p: { xs: 2, sm: 3 }
+        p: { xs: 2, sm: 3 },
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        borderRadius: 3,
       }}
       noValidate
     >
@@ -305,10 +310,8 @@ const AddBookingForm = ({ handleSubmit: onSubmitCallback, booking, setBooking, l
             fontWeight: 600,
             borderRadius: 3,
             textTransform: 'none',
-            boxShadow: 3,
             '&:hover': {
-              boxShadow: 6,
-              transform: 'translateY(-2px)'
+              transform: 'translateY(-2px)',
             },
             transition: 'all 0.2s'
           }}

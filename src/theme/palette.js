@@ -1,11 +1,11 @@
 // Palette de couleurs pour l'application 1755 RESA
-// Conserve l'identité visuelle du restaurant (darkred/gold) avec une meilleure cohérence
+// Design : Glassmorphism + Dark Mode profond + Accents or
 
 const palette = {
-  // Mode sombre par défaut (conserve le style actuel)
+  // Mode sombre par défaut
   mode: 'dark',
 
-  // Couleur primaire - basée sur le darkred du restaurant
+  // Couleur primaire - rouge bordeaux restaurant
   primary: {
     main: '#8B0000', // darkred
     light: '#B22222', // firebrick
@@ -23,7 +23,7 @@ const palette = {
 
   // États de succès
   success: {
-    main: '#4CAF50', // green plus moderne que #56ea65
+    main: '#4CAF50',
     light: '#81C784',
     dark: '#388E3C',
     contrastText: '#FFFFFF',
@@ -31,7 +31,7 @@ const palette = {
 
   // États d'erreur
   error: {
-    main: '#F44336', // red moderne
+    main: '#F44336',
     light: '#E57373',
     dark: '#D32F2F',
     contrastText: '#FFFFFF',
@@ -53,11 +53,11 @@ const palette = {
     contrastText: '#FFFFFF',
   },
 
-  // Arrière-plans
+  // Arrière-plans glass profond
   background: {
-    default: '#2B2B29', // Conserve le fond actuel
-    paper: '#353533', // Légèrement plus clair pour les cartes
-    elevated: '#3D3D3B', // Pour les éléments surélevés
+    default: '#0f0a0a',
+    paper: 'rgba(255, 255, 255, 0.06)',
+    elevated: 'rgba(255, 255, 255, 0.10)',
   },
 
   // Texte
@@ -68,7 +68,7 @@ const palette = {
   },
 
   // Dividers et bordures
-  divider: 'rgba(255, 255, 255, 0.12)',
+  divider: 'rgba(255, 255, 255, 0.10)',
 
   // Action states
   action: {
@@ -77,6 +77,16 @@ const palette = {
     selected: 'rgba(255, 255, 255, 0.16)',
     disabled: 'rgba(255, 255, 255, 0.3)',
     disabledBackground: 'rgba(255, 255, 255, 0.12)',
+  },
+
+  // Tokens glass (extension custom)
+  glass: {
+    surface: 'rgba(255, 255, 255, 0.06)',
+    surfaceHover: 'rgba(255, 255, 255, 0.10)',
+    border: 'rgba(255, 255, 255, 0.10)',
+    borderGold: 'rgba(218, 165, 32, 0.25)',
+    glow: 'rgba(218, 165, 32, 0.15)',
+    glowStrong: 'rgba(218, 165, 32, 0.30)',
   },
 };
 
