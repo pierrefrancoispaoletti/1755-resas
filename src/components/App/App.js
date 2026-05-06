@@ -22,6 +22,7 @@ import CallAxios from "../../database/index";
 //capacitor
 import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 //const
 import { tokenName } from "../../_const";
@@ -105,6 +106,13 @@ const App = () => {
         "pushNotificationActionPerformed",
         (ActionPerformed) => {}
       );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+      StatusBar.setBackgroundColor({ color: "#2B2B29" }).catch(() => {});
     }
   }, []);
 

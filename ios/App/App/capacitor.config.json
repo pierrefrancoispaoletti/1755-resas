@@ -23,6 +23,7 @@
 		]
 	},
 	"packageClassList": [
-		"PushNotificationsPlugin"
+		"PushNotificationsPlugin",
+		"StatusBarPlugin"
 	]
 }
