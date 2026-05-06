@@ -55,7 +55,7 @@ const App = () => {
     if (token && reconnector(token, setUser)) {
       setMessage({
         success: true,
-        message: "Re-Connécté",
+        message: "Reconnecté",
       });
     } else {
       logout(setUser, setMessage, false);

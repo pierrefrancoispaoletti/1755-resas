@@ -14,19 +14,15 @@ const BookingItem = ({
   bookingTime,
   bookingValidatedByAdmin,
 }) => {
+  const stateClass =
+    bookingValidatedByAdmin === true
+      ? "validated"
+      : bookingValidatedByAdmin === false
+      ? "refused"
+      : "";
+
   return (
-    <div
-      className='booking'
-      style={{
-        border: bookingValidatedByAdmin
-          ? "3px solid green"
-          : bookingValidatedByAdmin === false
-          ? "3px solid pink"
-          : bookingValidatedByAdmin === null
-          ? ""
-          : "",
-      }}
-    >
+    <div className={`booking ${stateClass}`}>
       <Label
         color={
           bookingValidatedByAdmin
@@ -53,27 +49,27 @@ const BookingItem = ({
             : "New !"}
         </span>
       </Label>
-      <h2 className='booking-title'>
+      <h3 className='booking-title'>
         {bookerName}{" "}
         {bookerPhoneNumber && (
           <a
-            style={{ display: "inline-block", margin: "0 5px" }}
+            className="booking-contact-link"
             href={`tel: ${bookerPhoneNumber}`}
           >
             <span>
-              <FontAwesomeIcon size='2x' color='white' icon={faPhoneAlt} />
+              <FontAwesomeIcon size='lg' color='white' icon={faPhoneAlt} />
             </span>
           </a>
         )}
         <a
-          style={{ display: "inline-block", margin: "0 5px" }}
+          className="booking-contact-link"
           href={`mailto: ${bookerEmail}`}
         >
           <span>
-            <FontAwesomeIcon size='2x' color='white' icon={faEnvelope} />
+            <FontAwesomeIcon size='lg' color='white' icon={faEnvelope} />
           </span>
         </a>
-      </h2>
+      </h3>
       <p className='booking-date'>
         <span>{calculateDate(bookingDate)[1]}, Le </span>
         <span>
@@ -84,7 +80,7 @@ const BookingItem = ({
             year: "numeric",
           })}
         </span>
-        <p> à {bookingTime}</p>
+        <span> à {bookingTime}</span>
       </p>
       <p className='booking-number'>
         Pour : <span>{bookerNumber}</span> personnes

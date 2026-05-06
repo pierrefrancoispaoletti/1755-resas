@@ -1,4 +1,6 @@
 .bookingcontrols {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0;
 }

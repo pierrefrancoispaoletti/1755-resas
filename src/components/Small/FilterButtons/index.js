@@ -10,7 +10,7 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="massive"
+          size="medium"
           circular
           color="red"
           content="Jours Précédents"
@@ -29,7 +29,7 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="massive"
+          size="medium"
           circular
           color="green"
           content="Aujourd'hui"
@@ -48,7 +48,7 @@ const FilterButtons = ({ setFilter, bookings }) => {
       <div style={{ position: "relative" }}>
         <Button
           className="filterbuttons-button"
-          size="massive"
+          size="medium"
           circular
           color="purple"
           content="Demain"
@@ -68,7 +68,7 @@ const FilterButtons = ({ setFilter, bookings }) => {
         <Button
           className="filterbuttons-button"
           circular
-          size="massive"
+          size="medium"
           color="yellow"
           content="Jours Suivants"
           onClick={() => setFilter(2)}

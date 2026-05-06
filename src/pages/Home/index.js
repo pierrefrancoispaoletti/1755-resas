@@ -75,7 +75,7 @@ const Home = ({
     } else {
       setMessage({
         success: false,
-        message: "il y a eu un problème",
+        message: "Il y a eu un problème",
       });
       setLoading(false);
     }
@@ -100,7 +100,7 @@ const Home = ({
       setMessage({
         success: false,
         message:
-          "il y eu un probléme lors de votre réservation veuillez reessayer",
+          "Il y a eu un problème lors de votre réservation, veuillez réessayer",
       });
       setError(true);
       setSuccess(false);

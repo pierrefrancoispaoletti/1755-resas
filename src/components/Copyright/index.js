@@ -25,7 +25,7 @@ const Copyright = () => {
               background: "white",
               borderRadius: "100%",
             }}
-            size="3x"
+            size="2x"
             icon={faFacebook}
             pull="left"
           />
@@ -33,7 +33,7 @@ const Copyright = () => {
         <a target="_blank" href="https://www.instagram.com/1755baravin/" rel="noreferrer">
           <FontAwesomeIcon
             style={{ color: "#3F729B", borderRadius: "100%" }}
-            size="3x"
+            size="2x"
             icon={faInstagram}
             pull="right"
           />
@@ -53,7 +53,7 @@ const Copyright = () => {
               "--fa-secondary-color": "white",
               "--fa-secondary-opacity": 0.8,
             }}
-            size="3x"
+            size="2x"
             icon={faEnvelope}
             pull="left"
           />
@@ -66,7 +66,7 @@ const Copyright = () => {
               "--fa-primary-opacity": 1,
               "--fa-secondary-opacity": 1,
             }}
-            size="3x"
+            size="2x"
             icon={faPhone}
             pull="right"
           />

@@ -6,7 +6,7 @@ import { Button, Icon } from "semantic-ui-react";
 const EmptyFormButton = ({ handleEmptyForm }) => {
   return (
     <Button
-      size="massive"
+      size="medium"
       circular
       color="blue"
       icon
@@ -15,7 +15,7 @@ const EmptyFormButton = ({ handleEmptyForm }) => {
       onClick={() => handleEmptyForm()}
     >
       <Icon>
-        <FontAwesomeIcon style={{ marginTop: "5px" }} size="2x" icon={faRedo} />
+        <FontAwesomeIcon size="1x" icon={faRedo} />
       </Icon>
       Recharger
     </Button>

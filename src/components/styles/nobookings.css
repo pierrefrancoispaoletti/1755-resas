@@ -1,11 +1,12 @@
 .nobookings {
-  height: 300px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 1.8em;
-  color: white;
-  font-size: 2em;
+  margin: 24px 16px;
+  color: #ddd;
+  font-size: 1.05em;
   text-align: center;
+  line-height: 1.5;
 }
