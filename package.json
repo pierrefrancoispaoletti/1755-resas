@@ -1,6 +1,6 @@
 {
   "name": "1755-resas",
-  "version": "1.5.0",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^7.0.0",
