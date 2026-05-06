@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^4.0.0",
-    "@capacitor/core": "^4.0.0",
-    "@capacitor/ios": "^4.0.0",
-    "@capacitor/push-notifications": "^4.0.0",
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/core": "^5.0.0",
+    "@capacitor/ios": "^5.0.0",
+    "@capacitor/push-notifications": "^5.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/pro-duotone-svg-icons": "^5.15.4",
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
     "test": "react-scripts test",
@@ -52,6 +52,6 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^4.0.0"
+    "@capacitor/cli": "^5.0.0"
   }
 }
