@@ -2,6 +2,7 @@ require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
 
 platform :ios, '15.6'
 use_frameworks!
+inhibit_all_warnings!
 
 # workaround to avoid Xcode caching of Pods that requires
 # Product -> Clean Build Folder after new Cordova plugins installed
@@ -17,7 +18,7 @@ end
 target 'App' do
   capacitor_pods
   # Add your Pods here
-  pod 'Firebase/Messaging' # Add this line
+  pod 'Firebase/Messaging', '~> 11.0'
 end
 
 
