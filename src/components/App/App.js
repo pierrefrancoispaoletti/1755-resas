@@ -57,7 +57,7 @@ const App = () => {
         message: "Re-Connécté",
       });
     } else {
-      logout(setUser, setMessage);
+      logout(setUser, setMessage, false);
     }
 
     async function getConfig() {

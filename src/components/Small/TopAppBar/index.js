@@ -8,15 +8,15 @@ import "../../styles/topappbar.css";
 
 const TopAppBar = ({ user, loading, setUser, setMessage }) => {
   return (
-    <div className='topappbar'>
-      <Link to='/'>
-        <div className='topappbar-image'>
-          <img src='./images/1755small.png' alt='logo 1755' />
+    <div className="topappbar">
+      <Link to="/">
+        <div className="topappbar-image">
+          <img src="./images/1755small.png" alt="logo 1755" />
         </div>
       </Link>
-      <div className='topappbar-icons'>
+      <div className="topappbar-icons">
         {!user ? (
-          <Link to='/login'>
+          <Link to="/login">
             <Button
               icon
               color={user ? "green" : "grey"}
@@ -25,27 +25,27 @@ const TopAppBar = ({ user, loading, setUser, setMessage }) => {
               disabled={loading}
               loading={loading}
             >
-              <FontAwesomeIcon size='3x' icon={faUser} />
+              <FontAwesomeIcon size="3x" icon={faUser} />
             </Button>
           </Link>
         ) : (
           <Button
             icon
-            color='red'
+            color="red"
             circular
             basic
             disabled={loading}
             loading={loading}
-            onClick={() => logout(setUser, setMessage)}
+            onClick={() => logout(setUser, setMessage, true)}
           >
-            <FontAwesomeIcon size='3x' icon={faUser} />
+            <FontAwesomeIcon size="3x" icon={faUser} />
           </Button>
         )}
 
         {user === "isAdmin" && (
-          <Link to='/bookings'>
+          <Link to="/bookings">
             <Button icon circular disabled={loading} loading={loading}>
-              <FontAwesomeIcon size='3x' icon={faBookOpen} />
+              <FontAwesomeIcon size="3x" icon={faBookOpen} />
             </Button>
           </Link>
         )}
