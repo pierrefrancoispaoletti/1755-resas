@@ -21,5 +21,8 @@
 		"allowNavigation": [
 			"le-1755.herokuapp.com/*"
 		]
-	}
+	},
+	"packageClassList": [
+		"PushNotificationsPlugin"
+	]
 }
