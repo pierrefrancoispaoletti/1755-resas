@@ -4,7 +4,7 @@ import "../../styles/nobookings.css";
 const NoBookings = () => {
   return (
     <div className="nobookings">
-      <p>Désolé , Il n'y a pas de reservations pour le moment :-(</p>
+      <p>Désolé, il n'y a pas de réservations pour le moment :-(</p>
     </div>
   );
 };

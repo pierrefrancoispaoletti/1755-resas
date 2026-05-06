@@ -15,23 +15,22 @@ const Toast = ({message}) => {
         <Message
           style={{
             position: "fixed",
-            bottom: 25,
+            bottom: 20,
             left: 0,
             right: 0,
             margin: "0 12px",
             zIndex: "1000",
             display: Object.keys(message).length > 0 && message.message !== "" ? "flex": 'none',
-            border: "3px solid white",
-            borderRadius: "50px",
+            borderRadius: "12px",
             background: message.success  ? "#56ea65" : "#f46161"
           }}
         >
           <FontAwesomeIcon
             icon={message.success ? faCheck : faTimes}
             color={message.success ? "green" : "red"}
-            size="2x"
+            size="lg"
           />
-          <span style={{ display: "inline-block", alignSelf: "center", fontSize: "1.3em", paddingLeft: "12px" }}>
+          <span style={{ display: "inline-block", alignSelf: "center", fontSize: "0.95em", paddingLeft: "10px" }}>
             {message.message}
           </span>
         </Message>

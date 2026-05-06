@@ -66,7 +66,7 @@ const Bookings = ({
     } else {
       setLoading(false);
 
-      setMessage({ success: false, message: "Il y à eu un problème" });
+      setMessage({ success: false, message: "Il y a eu un problème" });
     }
   };
 
@@ -92,7 +92,7 @@ const Bookings = ({
     } else {
       setLoading(false);
 
-      setMessage({ success: false, message: "Il y à eu un problème" });
+      setMessage({ success: false, message: "Il y a eu un problème" });
     }
   };
   return (

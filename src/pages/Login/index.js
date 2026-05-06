@@ -3,6 +3,7 @@ import { useState } from "react";
 import CallAxios from "../../database/index";
 import { tokenName } from "../../_const";
 import LoginForm from "../../components/Forms/LoginForm";
+import "./login.css";
 
 const Login = ({ setUser, setMessage }) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -30,13 +31,16 @@ const Login = ({ setUser, setMessage }) => {
     }
   };
   return (
-    <div className="home">
-      <LoginForm
-        handleSubmitForm={handleSubmitForm}
-        credentials={credentials}
-        setCredentials={setCredentials}
-        loading={loading}
-      />
+    <div className="login-screen">
+      <div className="login-card">
+        <h1>Connexion administrateur</h1>
+        <LoginForm
+          handleSubmitForm={handleSubmitForm}
+          credentials={credentials}
+          setCredentials={setCredentials}
+          loading={loading}
+        />
+      </div>
     </div>
   );
 };

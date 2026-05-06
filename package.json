@@ -1,13 +1,13 @@
 {
   "name": "1755-resas",
-  "version": "0.1.0",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^3.1.2",
-    "@capacitor/cli": "^3.1.2",
-    "@capacitor/core": "^3.1.2",
-    "@capacitor/ios": "^3.1.2",
-    "@capacitor/push-notifications": "^1.0.3",
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/ios": "^7.0.0",
+    "@capacitor/push-notifications": "^7.0.0",
+    "@capacitor/status-bar": "^7.0.6",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/pro-duotone-svg-icons": "^5.15.4",
@@ -27,8 +27,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
     "test": "react-scripts test",
@@ -51,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
   }
 }

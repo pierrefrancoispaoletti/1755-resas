@@ -22,12 +22,14 @@ import CallAxios from "../../database/index";
 //capacitor
 import { PushNotifications } from "@capacitor/push-notifications";
 import { Capacitor } from "@capacitor/core";
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 //const
 import { tokenName } from "../../_const";
 
 //utils
 import { reconnector } from "../../utils";
+import { logout } from "../../utils/index";
 
 //styles
 import "../styles/app.css";
@@ -53,11 +55,10 @@ const App = () => {
     if (token && reconnector(token, setUser)) {
       setMessage({
         success: true,
-        message: "Re-Connécté",
+        message: "Reconnecté",
       });
     } else {
-      setUser("");
-      localStorage.removeItem(`token-${tokenName}`);
+      logout(setUser, setMessage, false);
     }
 
     async function getConfig() {
@@ -105,6 +106,13 @@ const App = () => {
         "pushNotificationActionPerformed",
         (ActionPerformed) => {}
       );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Light }).catch(() => {});
+      StatusBar.setBackgroundColor({ color: "#2B2B29" }).catch(() => {});
     }
   }, []);
 

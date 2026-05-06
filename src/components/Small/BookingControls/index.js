@@ -17,20 +17,20 @@ const BookingControls = ({
           <Button
             icon
             color="green"
-            size="big"
+            size="medium"
             circular
             onClick={() => handleValidateBooking(booking, true)}
           >
-            <FontAwesomeIcon fixedWidth size="2x" color="white" icon={faCheck} />
+            <FontAwesomeIcon fixedWidth size="lg" color="white" icon={faCheck} />
           </Button>
           <Button
             icon
-            size="big"
+            size="medium"
             color="pink"
             circular
             onClick={() => handleValidateBooking(booking, false)}
           >
-            <FontAwesomeIcon fixedWidth size="2x" color="white" icon={faTimes} />
+            <FontAwesomeIcon fixedWidth size="lg" color="white" icon={faTimes} />
           </Button>
         </>
       )}
@@ -38,7 +38,7 @@ const BookingControls = ({
         <Button
           icon
           color="red"
-          size="massive"
+          size="big"
           circular
           onClick={() => handleDeleteBooking(booking)}
         >

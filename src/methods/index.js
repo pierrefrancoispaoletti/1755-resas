@@ -23,7 +23,7 @@ export async function getBookings(
     messageFunc({ success: true, message: message });
   } else {
     loadingFunc(false);
-    messageFunc({ success: false, message: "Il y a eu un probléme" });
+    messageFunc({ success: false, message: "Il y a eu un problème" });
   }
 }
 

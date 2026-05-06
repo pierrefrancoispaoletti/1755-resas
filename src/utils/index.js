@@ -57,11 +57,13 @@ export const reconnector = (token, logUserFunction) => {
   }
 };
 
-export const logout = (setUser, setMessage) => {
+export const logout = (setUser, setMessage, showMessage) => {
   localStorage.removeItem(`token-${tokenName}`);
   setUser("");
-  setMessage({
-    success: true,
-    message: "Déconnexion réussie",
-  });
+  if (showMessage) {
+    setMessage({
+      success: true,
+      message: "Déconnexion réussie",
+    });
+  }
 };

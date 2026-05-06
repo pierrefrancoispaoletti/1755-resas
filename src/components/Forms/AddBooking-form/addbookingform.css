@@ -1,0 +1,59 @@
+.add-booking-form .ui.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.add-booking-form .ui.form .field {
+  margin: 0 !important;
+}
+
+.add-booking-form .ui.form label {
+  color: #ddd !important;
+  font-size: 0.95em !important;
+  font-weight: 500 !important;
+  margin-bottom: 6px !important;
+}
+
+.add-booking-form .ui.form input,
+.add-booking-form .ui.form .ui.input input {
+  background: #1f1f1e !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+  font-size: 16px !important;
+}
+
+.add-booking-form .ui.form input:focus,
+.add-booking-form .ui.form .ui.input input:focus {
+  border-color: #4a90e2 !important;
+  background: #262625 !important;
+}
+
+.add-booking-form .field.error input {
+  background: #2a1f1f !important;
+  border-color: #d9534f !important;
+}
+
+.add-booking-form .submit-row {
+  position: sticky;
+  bottom: env(safe-area-inset-bottom, 0);
+  background: linear-gradient(to bottom, transparent, #2b2b29 30%);
+  padding: 16px 0 8px;
+  margin-top: 8px;
+}
+
+.add-booking-form .submit-row .ui.button {
+  width: 100%;
+  font-size: 1.1em !important;
+}
+
+.add-booking-form .time-hint {
+  display: block;
+  color: #f3f3f1;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 4px 0 6px;
+}

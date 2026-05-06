@@ -8,7 +8,7 @@ const BookingSwitch = ({ resaOpen, handleChangeResaOpen }) => {
       toggle
       checked={resaOpen}
       onChange={() => handleChangeResaOpen()}
-      label={resaOpen ? "Reservations activées" : "Réservations desactivées"}
+      label={resaOpen ? "Réservations activées" : "Réservations désactivées"}
     />
   );
 };
